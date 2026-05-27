@@ -16,7 +16,8 @@
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.43.1",
-    "react-router-dom": "^6.8.1"
+    "react-router-dom": "^6.8.1",
+    "three": "^0.160.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

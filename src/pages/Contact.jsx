@@ -122,27 +122,27 @@ const Contact = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-white font-medium mb-2">First Name *</label>
-            <input type="text" {...register('firstName', { required: 'First name is required', pattern: validationPatterns.name })} className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary-green focus:ring-1 focus:ring-primary-green" placeholder="John" />
+            <input type="text" {...register('firstName', { required: 'First name is required', pattern: validationPatterns.name })} className="w-full form-input" placeholder="John" />
             {errors.firstName && <p className="text-red-400 text-sm mt-1">{errors.firstName.message}</p>}
           </div>
           <div>
             <label className="block text-white font-medium mb-2">Last Name *</label>
-            <input type="text" {...register('lastName', { required: 'Last name is required', pattern: validationPatterns.name })} className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary-green focus:ring-1 focus:ring-primary-green" placeholder="Doe" />
+            <input type="text" {...register('lastName', { required: 'Last name is required', pattern: validationPatterns.name })} className="w-full form-input" placeholder="Doe" />
             {errors.lastName && <p className="text-red-400 text-sm mt-1">{errors.lastName.message}</p>}
           </div>
         </div>
         <div>
           <label className="block text-white font-medium mb-2">Email Address *</label>
-          <input type="email" {...register('email', { required: 'Email is required', pattern: validationPatterns.email })} className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary-green focus:ring-1 focus:ring-primary-green" placeholder="john.doe@agency.gov" />
+          <input type="email" {...register('email', { required: 'Email is required', pattern: validationPatterns.email })} className="w-full form-input" placeholder="john.doe@agency.gov" />
           {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email.message}</p>}
         </div>
         <div>
           <label className="block text-white font-medium mb-2">Phone Number</label>
-          <input type="tel" name="phone" value={phoneNumber} onChange={handlePhoneChange} className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary-green focus:ring-1 focus:ring-primary-green" placeholder="(555) 123-4567" maxLength="14" />
+          <input type="tel" name="phone" value={phoneNumber} onChange={handlePhoneChange} className="w-full form-input" placeholder="(555) 123-4567" maxLength="14" />
         </div>
         <div>
           <label className="block text-white font-medium mb-2">Organization / Agency *</label>
-          <input type="text" {...register('company', { required: 'Organization name is required', pattern: validationPatterns.company })} className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary-green focus:ring-1 focus:ring-primary-green" placeholder="Your Agency or Company" />
+          <input type="text" {...register('company', { required: 'Organization name is required', pattern: validationPatterns.company })} className="w-full form-input" placeholder="Your Agency or Company" />
           {errors.company && <p className="text-red-400 text-sm mt-1">{errors.company.message}</p>}
         </div>
         <div>
@@ -165,7 +165,7 @@ const Contact = () => {
         </div>
         <div>
           <label className="block text-white font-medium mb-2">Message *</label>
-          <textarea {...register('message', { required: 'Please provide details about your inquiry' })} rows={4} className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary-green focus:ring-1 focus:ring-primary-green resize-none" placeholder="Tell us about your contracting needs, teaming opportunities, or how we can support your federal mission..." />
+          <textarea {...register('message', { required: 'Please provide details about your inquiry' })} rows={4} className="w-full form-input resize-none" placeholder="Tell us about your contracting needs, teaming opportunities, or how we can support your federal mission..." />
           {errors.message && <p className="text-red-400 text-sm mt-1">{errors.message.message}</p>}
         </div>
         <button type="submit" className="w-full glass-button-primary hover-glow" disabled={isSubmitting}>
@@ -176,7 +176,7 @@ const Contact = () => {
   )
 
   return (
-    <div className="pt-24">
+    <div>
       <Helmet>
         <title>Contact Gridstream | Partner With an SDVOSB Federal Contractor</title>
         <meta name="description" content="Contact Gridstream — a Service-Disabled Veteran Owned Small Business (SDVOSB) and NC HUB Certified federal contractor. Reach us at contact@gridstream.ai or (631) 873-9814. CAGE: 12H34 | UEI: TW2PWH3N98N7" />
@@ -187,20 +187,24 @@ const Contact = () => {
         <link rel="canonical" href="https://gridstream.ai/contact" />
       </Helmet>
 
-      {/* Hero Section */}
-      <section className="hero-gradient py-20 px-4">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Partner With <span className="text-gradient">Gridstream</span>
+      {/* Page hero */}
+      <section className="relative pt-36 pb-16 sm:pt-44 sm:pb-20 container-padding overflow-hidden">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="boot flex items-center justify-center gap-2.5 mb-6" style={{ animationDelay: '0.05s' }}>
+            <span className="cursor-blink w-1.5 h-1.5 rounded-full bg-primary-green" style={{ boxShadow: '0 0 10px #48D8A0' }} />
+            <span className="hud-label text-[11px]">Open for Engagement · 24h Response</span>
+          </div>
+          <h1 className="boot hero-text font-display font-semibold leading-[1.02]" style={{ animationDelay: '0.16s' }}>
+            Partner with <span className="text-primary-green">Gridstream</span>
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="boot text-base sm:text-lg text-dim max-w-2xl mx-auto leading-relaxed mt-6" style={{ animationDelay: '0.3s' }}>
             Whether you're a contracting officer seeking a capable SDVOSB prime, or a company looking for a trusted teaming partner — Gridstream is ready to deliver.
           </p>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 px-4">
+      <section className="pb-24 container-padding border-t border-white/[0.06] pt-16">
         <div className="max-w-7xl mx-auto">
           <div className={`grid gap-12 ${SHOW_FORM ? 'grid-cols-1 lg:grid-cols-2' : 'grid-cols-1 max-w-2xl mx-auto'}`}>
 
@@ -210,26 +214,26 @@ const Contact = () => {
             {/* Contact Information Sidebar */}
             <div className="space-y-6">
               {/* Direct Contact */}
-              <div className="glass-card">
-                <h3 className="text-xl font-semibold mb-5 text-white">Contact Us Directly</h3>
+              <div className="glass-card" data-reveal>
+                <h3 className="text-xl font-display font-semibold mb-5 text-white">Contact Us Directly</h3>
                 <div className="space-y-4">
                   <div className="flex items-start space-x-4">
-                    <div className="w-10 h-10 bg-primary-green/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-primary-green/[0.12] rounded-md flex items-center justify-center flex-shrink-0 border border-primary-green/20">
                       <Mail className="w-5 h-5 text-primary-green" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-gray-400 text-xs uppercase tracking-wide mb-1">Email</p>
+                      <p className="hud-label text-[10px] mb-1">Email</p>
                       <a href="mailto:contact@gridstream.ai" className="text-primary-green hover:underline font-medium">
                         contact@gridstream.ai
                       </a>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
-                    <div className="w-10 h-10 bg-primary-green/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-primary-green/[0.12] rounded-md flex items-center justify-center flex-shrink-0 border border-primary-green/20">
                       <Phone className="w-5 h-5 text-primary-green" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="text-gray-400 text-xs uppercase tracking-wide mb-1">Phone</p>
+                      <p className="hud-label text-[10px] mb-1">Phone</p>
                       <a href="tel:+16318739814" className="text-white hover:text-primary-green transition-colors font-medium">
                         (631) 873-9814
                       </a>
@@ -239,9 +243,9 @@ const Contact = () => {
               </div>
 
               {/* Why Gridstream */}
-              <div className="glass-card">
-                <h3 className="text-xl font-semibold mb-4 text-white">Why Partner With Gridstream?</h3>
-                <ul className="space-y-3 text-gray-300">
+              <div className="glass-card" data-reveal style={{ transitionDelay: '80ms' }}>
+                <h3 className="text-xl font-display font-semibold mb-4 text-white">Why Partner With Gridstream?</h3>
+                <ul className="space-y-3 text-dim">
                   <li className="flex items-start space-x-3">
                     <div className="w-2 h-2 bg-primary-green rounded-full mt-2 flex-shrink-0"></div>
                     <span>SDVOSB certified — eligible for set-aside and sole-source federal awards</span>
@@ -266,49 +270,41 @@ const Contact = () => {
               </div>
 
               {/* Business Identifiers */}
-              <div className="glass-card">
-                <h3 className="text-xl font-semibold mb-4 text-white">Federal Business Identifiers</h3>
+              <div className="glass-card" data-reveal style={{ transitionDelay: '160ms' }}>
+                <h3 className="hud-label text-[11px] mb-4">Federal Business Identifiers</h3>
                 <div className="space-y-4">
                   <div>
-                    <p className="text-gray-500 text-xs uppercase tracking-widest mb-1">CAGE Code</p>
-                    <p className="text-white font-mono text-xl font-bold">12H34</p>
+                    <p className="hud-label text-[10px] mb-1">CAGE Code</p>
+                    <p className="text-white font-mono text-xl font-medium tracking-widest">12H34</p>
                   </div>
                   <div>
-                    <p className="text-gray-500 text-xs uppercase tracking-widest mb-1">UEI</p>
-                    <p className="text-white font-mono text-lg font-bold">TW2PWH3N98N7</p>
+                    <p className="hud-label text-[10px] mb-1">UEI</p>
+                    <p className="text-white font-mono text-lg font-medium tracking-widest">TW2PWH3N98N7</p>
                   </div>
                   <div className="flex flex-wrap gap-2 pt-2">
-                    <span className="px-2 py-1 bg-primary-green/20 text-primary-green text-xs rounded border border-primary-green/30">SDVOSB</span>
-                    <span className="px-2 py-1 bg-accent-blue/20 text-accent-blue text-xs rounded border border-accent-blue/30">NC HUB</span>
+                    <span className="px-2.5 py-1 bg-primary-green/[0.12] text-primary-green text-xs rounded border border-primary-green/30 tracking-wide">SDVOSB</span>
+                    <span className="px-2.5 py-1 bg-accent-blue/[0.12] text-accent-blue text-xs rounded border border-accent-blue/30 tracking-wide">NC HUB</span>
                   </div>
                 </div>
               </div>
 
               {/* What Happens Next */}
-              <div className="glass-card">
-                <h3 className="text-xl font-semibold mb-4 text-white">What Happens Next?</h3>
+              <div className="glass-card" data-reveal style={{ transitionDelay: '240ms' }}>
+                <h3 className="text-xl font-display font-semibold mb-4 text-white">What Happens Next?</h3>
                 <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-7 h-7 bg-primary-green/20 text-primary-green rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</div>
-                    <div>
-                      <h4 className="text-white font-medium">Initial Consultation</h4>
-                      <p className="text-gray-400 text-sm mt-0.5">We'll schedule a call to understand your contracting needs and objectives</p>
+                  {[
+                    ['01', 'Initial Consultation', "We'll schedule a call to understand your contracting needs and objectives"],
+                    ['02', 'Tailored Strategy', 'We develop a customized approach aligned with your goals and the federal marketplace'],
+                    ['03', 'Execution & Delivery', 'We execute with precision, accountability, and a commitment to mission success'],
+                  ].map(([n, title, body]) => (
+                    <div key={n} className="flex items-start space-x-3">
+                      <div className="w-7 h-7 bg-primary-green/[0.12] text-primary-green rounded-md flex items-center justify-center text-xs font-mono font-medium flex-shrink-0 border border-primary-green/25">{n}</div>
+                      <div>
+                        <h4 className="text-white font-medium">{title}</h4>
+                        <p className="text-mute text-sm mt-0.5">{body}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-7 h-7 bg-primary-green/20 text-primary-green rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">2</div>
-                    <div>
-                      <h4 className="text-white font-medium">Tailored Strategy</h4>
-                      <p className="text-gray-400 text-sm mt-0.5">We develop a customized approach aligned with your goals and the federal marketplace</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-7 h-7 bg-primary-green/20 text-primary-green rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">3</div>
-                    <div>
-                      <h4 className="text-white font-medium">Execution & Delivery</h4>
-                      <p className="text-gray-400 text-sm mt-0.5">We execute with precision, accountability, and a commitment to mission success</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>

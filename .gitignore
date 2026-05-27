@@ -4,3 +4,7 @@ dist/
 .env
 .env.local
 .env.*.local
+
+# Agent skill installs (tooling, not website code)
+.agents/
+skills-lock.json

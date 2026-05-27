@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { Building2, Shield, Wrench, BarChart3, Award, Landmark, BookOpen, Star, Package } from 'lucide-react'
+import Hero from '../components/Hero'
+import SectionHeader from '../components/SectionHeader'
 
 const Home = () => {
   const services = [
@@ -56,7 +58,7 @@ const Home = () => {
   ]
 
   return (
-    <div className="pt-20 sm:pt-24">
+    <div>
       <Helmet>
         <title>Gridstream | Federal Government Contracting | SDVOSB | NC HUB Certified</title>
         <meta name="description" content="Gridstream is a Service-Disabled Veteran Owned Small Business (SDVOSB) and NC HUB Certified firm delivering federal contracting excellence — construction, engineering, logistics, material sourcing, and program management. CAGE: 12H34 | UEI: TW2PWH3N98N7" />
@@ -67,110 +69,85 @@ const Home = () => {
         <link rel="canonical" href="https://gridstream.ai/" />
       </Helmet>
 
-      {/* Hero Section */}
-      <section className="hero-gradient section-padding container-padding">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="flex flex-wrap justify-center gap-2 mb-6">
-            <span className="px-3 py-1 bg-primary-green/20 text-primary-green text-xs sm:text-sm rounded-full border border-primary-green/30 font-medium">
-              SDVOSB Certified
-            </span>
-            <span className="px-3 py-1 bg-accent-blue/20 text-accent-blue text-xs sm:text-sm rounded-full border border-accent-blue/30 font-medium">
-              NC HUB Certified
-            </span>
-          </div>
+      {/* Hero Section — "Flight Director" (Mission Control) */}
+      <Hero />
 
-          <h1 className="hero-text font-bold mb-4 sm:mb-6">
-            Federal Contracting
-            <span className="text-gradient block">Excellence</span>
-          </h1>
-
-          <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-2">
-            Gridstream is a Service-Disabled Veteran Owned Small Business delivering federal contracting excellence across construction, engineering, logistics, material sourcing, and program management.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-xs sm:max-w-none mx-auto">
-            <Link to="/contact" className="glass-button-primary hover-glow">
-              Partner With Us
-            </Link>
-            <Link to="/about" className="glass-button-secondary">
-              Learn More
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section className="py-16 sm:py-20 md:py-24 container-padding">
+      {/* Capabilities */}
+      <section className="section-padding container-padding">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10 sm:mb-16">
-            <h2 className="section-title font-bold mb-3 sm:mb-6">
-              Our <span className="text-gradient">Capabilities</span>
-            </h2>
-            <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
-              Comprehensive federal contracting solutions backed by veteran leadership and a commitment to mission success.
-            </p>
-          </div>
+          <SectionHeader
+            index="01"
+            eyebrow="Capabilities"
+            title="From requirement to"
+            accent="result."
+            subtitle="Comprehensive federal contracting solutions backed by veteran leadership and a commitment to mission success."
+          />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             {services.map((service, index) => (
               <div
                 key={index}
-                className="glass-card hover:scale-105 transition-transform duration-300 flex flex-col"
+                className="glass-card flex flex-col"
+                data-reveal
+                style={{ transitionDelay: `${index * 80}ms` }}
               >
-                <div className="w-12 h-12 bg-primary-green/15 rounded-xl flex items-center justify-center mb-4 flex-shrink-0">
-                  <service.icon className="w-6 h-6 text-primary-green" strokeWidth={1.5} />
+                <div className="w-11 h-11 bg-primary-green/[0.12] rounded-md flex items-center justify-center mb-4 flex-shrink-0 border border-primary-green/20">
+                  <service.icon className="w-5 h-5 text-primary-green" strokeWidth={1.5} />
                 </div>
-                <h3 className="text-base sm:text-lg font-semibold mb-2 text-white">{service.title}</h3>
-                <p className="text-gray-300 text-sm leading-relaxed flex-grow">{service.description}</p>
+                <h3 className="text-lg font-display font-semibold mb-2 text-white">{service.title}</h3>
+                <p className="text-dim text-sm leading-relaxed flex-grow">{service.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Why Gridstream Section */}
-      <section className="py-16 sm:py-20 md:py-24 container-padding bg-primary-dark/50">
+      {/* Why Gridstream */}
+      <section className="section-padding container-padding border-y border-white/[0.06]">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10 sm:mb-14">
-            <h2 className="section-title font-bold mb-3 sm:mb-6">
-              Why Choose <span className="text-gradient">Gridstream</span>?
-            </h2>
-            <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-              As a Service-Disabled Veteran Owned Small Business, Gridstream brings the discipline, integrity, and mission-focus of military service to every federal contract.
-            </p>
-          </div>
+          <SectionHeader
+            index="02"
+            eyebrow="Why Gridstream"
+            title="Military discipline, federal"
+            accent="results."
+            subtitle="As a Service-Disabled Veteran Owned Small Business, Gridstream brings the discipline, integrity, and mission-focus of military service to every federal contract."
+          />
 
-          {/* Differentiators — card grid, works great on all screen sizes */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-10 sm:mb-14">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-12 sm:mb-16">
             {differentiators.map((item, index) => (
-              <div key={index} className="glass-card flex items-start space-x-4">
-                <div className="w-10 h-10 bg-accent-blue/15 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div
+                key={index}
+                className="glass-card flex items-start space-x-4"
+                data-reveal
+                style={{ transitionDelay: `${index * 80}ms` }}
+              >
+                <div className="w-10 h-10 bg-accent-blue/[0.12] rounded-md flex items-center justify-center flex-shrink-0 border border-accent-blue/20">
                   <item.icon className="w-5 h-5 text-accent-blue" strokeWidth={1.5} />
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold text-sm sm:text-base mb-1">{item.label}</h4>
-                  <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
+                  <h4 className="text-white font-display font-semibold text-base mb-1">{item.label}</h4>
+                  <p className="text-dim text-sm leading-relaxed">{item.description}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Ready to Work Together card */}
-          <div className="glass-card max-w-2xl mx-auto">
-            <h3 className="text-lg sm:text-xl font-semibold mb-2 text-white text-center">Ready to Work Together?</h3>
-            <p className="text-gray-300 mb-6 text-sm sm:text-base leading-relaxed text-center">
+          {/* Ready to Work Together */}
+          <div className="glass-card max-w-2xl mx-auto" data-reveal>
+            <h3 className="text-xl font-display font-semibold mb-2 text-white text-center">Ready to Work Together?</h3>
+            <p className="text-dim mb-6 text-sm sm:text-base leading-relaxed text-center">
               Whether you're a contracting officer seeking a capable SDVOSB prime or a company looking for a trusted teaming partner — Gridstream is ready to deliver.
             </p>
 
-            <div className="border-t border-white/10 pt-5 mb-6">
+            <div className="border-t border-white/[0.08] pt-5 mb-6">
               <div className="grid grid-cols-2 gap-4 text-center">
                 <div>
-                  <p className="text-gray-500 text-xs uppercase tracking-wide mb-1">CAGE Code</p>
-                  <p className="text-white font-mono font-semibold">12H34</p>
+                  <p className="hud-label text-[10px] mb-1">CAGE Code</p>
+                  <p className="text-white font-mono font-medium tracking-wider">12H34</p>
                 </div>
                 <div>
-                  <p className="text-gray-500 text-xs uppercase tracking-wide mb-1">UEI</p>
-                  <p className="text-white font-mono font-semibold text-sm">TW2PWH3N98N7</p>
+                  <p className="hud-label text-[10px] mb-1">UEI</p>
+                  <p className="text-white font-mono font-medium tracking-wider text-sm">TW2PWH3N98N7</p>
                 </div>
               </div>
             </div>
@@ -187,49 +164,56 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Certifications Banner */}
-      <section className="py-12 sm:py-16 container-padding">
+      {/* Certifications */}
+      <section className="section-padding container-padding">
         <div className="max-w-7xl mx-auto">
-          <div className="glass-card">
+          <SectionHeader
+            index="03"
+            eyebrow="Accreditation"
+            title="Certified to"
+            accent="compete."
+            subtitle="Gridstream's certifications open doors to exclusive federal contracting opportunities and demonstrate our commitment to the highest standards."
+          />
+          <div className="glass-card" data-reveal>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 text-center">
               <div className="flex flex-col items-center">
-                <div className="w-14 h-14 bg-primary-green/15 rounded-2xl flex items-center justify-center mb-4">
+                <div className="w-14 h-14 bg-primary-green/[0.12] rounded-md flex items-center justify-center mb-4 border border-primary-green/20">
                   <Award className="w-7 h-7 text-primary-green" strokeWidth={1.5} />
                 </div>
-                <h4 className="text-white font-semibold mb-2">SDVOSB Certified</h4>
-                <p className="text-gray-400 text-sm leading-relaxed">Service-Disabled Veteran Owned Small Business — eligible for federal set-aside and sole-source awards</p>
+                <h4 className="text-white font-display font-semibold mb-2">SDVOSB Certified</h4>
+                <p className="text-dim text-sm leading-relaxed">Service-Disabled Veteran Owned Small Business — eligible for federal set-aside and sole-source awards</p>
               </div>
-              <div className="flex flex-col items-center border-t sm:border-t-0 sm:border-x border-white/10 pt-6 sm:pt-0 sm:px-6">
-                <div className="w-14 h-14 bg-accent-blue/15 rounded-2xl flex items-center justify-center mb-4">
+              <div className="flex flex-col items-center border-t sm:border-t-0 sm:border-x border-white/[0.08] pt-6 sm:pt-0 sm:px-6">
+                <div className="w-14 h-14 bg-accent-blue/[0.12] rounded-md flex items-center justify-center mb-4 border border-accent-blue/20">
                   <Landmark className="w-7 h-7 text-accent-blue" strokeWidth={1.5} />
                 </div>
-                <h4 className="text-white font-semibold mb-2">NC HUB Certified</h4>
-                <p className="text-gray-400 text-sm leading-relaxed">North Carolina Historically Underutilized Business — recognized for state and federal procurement opportunities</p>
+                <h4 className="text-white font-display font-semibold mb-2">NC HUB Certified</h4>
+                <p className="text-dim text-sm leading-relaxed">North Carolina Historically Underutilized Business — recognized for state and federal procurement opportunities</p>
               </div>
-              <div className="flex flex-col items-center border-t sm:border-t-0 border-white/10 pt-6 sm:pt-0">
-                <div className="w-14 h-14 bg-primary-green/15 rounded-2xl flex items-center justify-center mb-4">
+              <div className="flex flex-col items-center border-t sm:border-t-0 border-white/[0.08] pt-6 sm:pt-0">
+                <div className="w-14 h-14 bg-primary-green/[0.12] rounded-md flex items-center justify-center mb-4 border border-primary-green/20">
                   <Star className="w-7 h-7 text-primary-green" strokeWidth={1.5} />
                 </div>
-                <h4 className="text-white font-semibold mb-2">Veteran-Led</h4>
-                <p className="text-gray-400 text-sm leading-relaxed">Founded and operated by service-disabled veterans committed to excellence, integrity, and mission success</p>
+                <h4 className="text-white font-display font-semibold mb-2">Veteran-Led</h4>
+                <p className="text-dim text-sm leading-relaxed">Founded and operated by service-disabled veterans committed to excellence, integrity, and mission success</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 sm:py-20 md:py-24 container-padding">
-        <div className="max-w-4xl mx-auto text-center">
+      {/* CTA */}
+      <section className="section-padding container-padding">
+        <div className="max-w-4xl mx-auto text-center" data-reveal>
           <div className="glass-card">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6 text-white">
-              Ready to Compete and Win in the Federal Marketplace?
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-semibold mb-4 sm:mb-6 text-white leading-tight">
+              Ready to compete and win in the <span className="text-primary-green">federal marketplace?</span>
             </h2>
-            <p className="text-gray-300 text-sm sm:text-base md:text-lg mb-6 sm:mb-10 leading-relaxed">
+            <p className="text-dim text-sm sm:text-base md:text-lg mb-8 leading-relaxed max-w-2xl mx-auto">
               Partner with Gridstream and leverage our SDVOSB status, federal contracting expertise, and veteran-led team to pursue and win government contracts with confidence.
             </p>
-            <Link to="/contact" className="glass-button-primary hover-glow">
-              Start the Conversation
+            <Link to="/contact" className="glass-button-primary">
+              Start the conversation →
             </Link>
           </div>
         </div>

@@ -14,30 +14,36 @@ const Header = () => {
   const isActive = (path) => location.pathname === path
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 p-4">
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-3 sm:pt-4">
       <nav className={`max-w-7xl mx-auto glass-nav transition-all duration-500 ease-in-out overflow-hidden ${
-        isMenuOpen ? 'mobile-nav-expanded' : ''
+        isMenuOpen ? 'shadow-2xl' : ''
       }`}>
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <img 
-              src="/Gridstream White.svg" 
-              alt="Gridstream" 
-              className="h-8 w-auto"
-            />
-          </Link>
+          {/* Logo + live status */}
+          <div className="flex items-center gap-4">
+            <Link to="/" className="flex items-center">
+              <img
+                src="/Gridstream White.svg"
+                alt="Gridstream"
+                className="h-6 w-auto"
+              />
+            </Link>
+            <span className="hidden lg:flex items-center gap-1.5 pl-4 border-l border-white/10">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary-green" style={{ boxShadow: '0 0 8px #48D8A0', animation: 'gridPulse 1.6s ease-in-out infinite' }} />
+              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">Systems Nominal</span>
+            </span>
+          </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center gap-1">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className={`px-4 py-2 rounded-full transition-all duration-300 ${
+                className={`px-3.5 py-1.5 rounded-full text-sm tracking-wide transition-all duration-300 ${
                   isActive(item.href)
-                    ? 'bg-white/20 text-white backdrop-blur-sm'
-                    : 'text-white hover:bg-white/10 hover:text-primary-green'
+                    ? 'text-primary-green bg-white/[0.06]'
+                    : 'text-white/70 hover:text-white hover:bg-white/[0.05]'
                 }`}
               >
                 {item.name}
@@ -55,7 +61,8 @@ const Header = () => {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden glass-button p-2 transition-transform duration-300"
+            className="md:hidden p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/[0.06] transition-colors duration-300"
+            aria-label="Toggle menu"
           >
             <svg
               className={`w-6 h-6 transition-transform duration-300 ${
@@ -86,25 +93,25 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         <div className={`md:hidden transition-all duration-500 ease-in-out ${
-          isMenuOpen 
-            ? 'max-h-96 opacity-100 mt-6 pb-6' 
+          isMenuOpen
+            ? 'max-h-96 opacity-100 mt-4 pb-4'
             : 'max-h-0 opacity-0 mt-0 pb-0'
         }`}>
-          <div className="border-t border-white/20 pt-6">
-            <div className="flex flex-col space-y-3">
+          <div className="border-t border-white/[0.10] pt-4">
+            <div className="flex flex-col space-y-2">
               {navigation.map((item, index) => (
                 <Link
                   key={item.name}
                   to={item.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 transform ${
-                    isMenuOpen 
-                      ? 'translate-y-0 opacity-100' 
+                  className={`px-4 py-2.5 rounded-lg text-sm font-medium tracking-wide transition-all duration-300 transform ${
+                    isMenuOpen
+                      ? 'translate-y-0 opacity-100'
                       : 'translate-y-4 opacity-0'
                   } ${
                     isActive(item.href)
-                      ? 'bg-white/20 text-white backdrop-blur-sm'
-                      : 'text-white hover:bg-white/10 hover:text-primary-green'
+                      ? 'bg-white/[0.06] text-primary-green'
+                      : 'text-white/70 hover:bg-white/[0.05] hover:text-white'
                   }`}
                   style={{
                     transitionDelay: isMenuOpen ? `${index * 100}ms` : '0ms'
@@ -116,9 +123,9 @@ const Header = () => {
               <Link
                 to="/contact"
                 onClick={() => setIsMenuOpen(false)}
-                className={`px-4 py-3 bg-primary-green text-white rounded-lg text-base font-medium text-center mt-2 hover:bg-primary-green/90 transition-all duration-300 transform ${
-                  isMenuOpen 
-                    ? 'translate-y-0 opacity-100' 
+                className={`px-4 py-2.5 bg-primary-green text-ink rounded-lg text-sm font-semibold text-center mt-1 transition-all duration-300 transform ${
+                  isMenuOpen
+                    ? 'translate-y-0 opacity-100'
                     : 'translate-y-4 opacity-0'
                 }`}
                 style={{
