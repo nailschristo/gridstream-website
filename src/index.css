@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-primary-dark text-white font-sans;
+  }
+}
+
+@layer components {
+  .glass-effect {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+  
+  .glass-button {
+    @apply glass-effect px-4 py-2 sm:px-6 sm:py-3 rounded-full font-medium transition-all duration-300 hover:bg-white/20 hover:scale-105 hover:shadow-xl;
+  }
+  
+  .glass-button-primary {
+    @apply glass-button bg-primary-green/30 border-primary-green/50 text-white hover:bg-primary-green/50 hover:shadow-lg;
+  }
+  
+  .glass-button-secondary {
+    @apply glass-button bg-accent-blue/20 border-accent-blue/30 text-accent-blue hover:bg-accent-blue/30 hover:text-white;
+  }
+  
+  .glass-button-cta {
+    @apply glass-button bg-primary-green text-white border-primary-green hover:bg-primary-green/90 hover:shadow-xl hover:scale-110;
+  }
+  
+  .glass-card {
+    @apply glass-effect p-4 sm:p-6 rounded-xl;
+  }
+  
+  .form-input {
+    @apply glass-effect px-4 py-3 rounded-lg bg-white/5 border-white/30 text-white placeholder-gray-400 focus:border-primary-green/50 focus:bg-white/10 focus:outline-none transition-all duration-300;
+  }
+  
+  .form-select {
+    @apply glass-effect px-4 py-3 rounded-lg bg-white/5 border-white/30 text-white focus:border-primary-green/50 focus:bg-white/10 focus:outline-none transition-all duration-300;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  
+  /* Gentle option styling that works with browser defaults */
+  .form-select option {
+    background-color: #2a3441;
+    color: #ffffff;
+    padding: 8px 12px;
+  }
+  
+  .form-select optgroup {
+    background-color: #1e2938;
+    color: #48d8a0;
+    font-weight: 600;
+  }
+  
+  .glass-nav {
+    @apply glass-effect px-4 py-3 sm:px-6 sm:py-4 rounded-full md:rounded-full;
+  }
+  
+  /* Mobile navigation - use consistent rounded rectangle */
+  @media (max-width: 768px) {
+    .glass-nav {
+      @apply rounded-3xl;
+    }
+    
+    .glass-nav.mobile-nav-expanded {
+      @apply shadow-2xl;
+    }
+  }
+  
+  /* Mobile-optimized spacing utilities */
+  .section-padding {
+    @apply py-12 sm:py-16 md:py-20;
+  }
+  
+  .section-padding-sm {
+    @apply py-8 sm:py-12 md:py-16;
+  }
+  
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Mobile-first responsive text */
+  .hero-text {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl;
+  }
+  
+  .section-title {
+    @apply text-2xl sm:text-3xl md:text-4xl;
+  }
+  
+  /* Mobile navigation expansion - removed duplicate */
+  
+  /* Enhanced mobile menu animations */
+  .mobile-menu-item {
+    @apply transform transition-all duration-300 ease-out;
+  }
+  
+  .mobile-menu-item-enter {
+    @apply translate-y-4 opacity-0;
+  }
+  
+  .mobile-menu-item-enter-active {
+    @apply translate-y-0 opacity-100;
+  }
+  
+  .hero-gradient {
+    background: linear-gradient(135deg, #242E42 0%, #1a2332 50%, #242E42 100%);
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-green to-accent-blue bg-clip-text text-transparent;
+  }
+  
+  .glow-effect {
+    box-shadow: 0 0 20px rgba(72, 216, 160, 0.3);
+  }
+  
+  .hover-glow:hover {
+    @apply glow-effect;
+  }
+}
+
+@layer utilities {
+  .backdrop-blur-xs {
+    backdrop-filter: blur(2px);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-primary-dark;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary-green/50 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary-green/70;
+}
