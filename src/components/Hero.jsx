@@ -94,9 +94,9 @@ const monoLbl = { fontFamily: MONO, fontSize: 10, letterSpacing: '0.18em', textT
 // Datum-strip cell
 function Datum({ label, value, mintValue }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+    <div style={{ flex: '1 1 0', minWidth: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 3 }}>
       <span style={{ fontFamily: MONO, fontSize: 9, letterSpacing: '0.18em', textTransform: 'uppercase', color: PALETTE.mute }}>{label}</span>
-      <span style={{ fontFamily: MONO, fontSize: 12, letterSpacing: '0.04em', color: mintValue ? PALETTE.mint : PALETTE.white }}>{value}</span>
+      <span style={{ fontFamily: MONO, fontSize: 12, letterSpacing: '0.04em', whiteSpace: 'nowrap', color: mintValue ? PALETTE.mint : PALETTE.white }}>{value}</span>
     </div>
   )
 }
