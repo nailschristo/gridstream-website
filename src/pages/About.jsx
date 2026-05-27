@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import { ShieldCheck, Trophy, Target, Handshake, Award, Landmark } from 'lucide-react'
+import { ShieldCheck, Trophy, Target, Handshake, Award, Landmark, FileDown } from 'lucide-react'
 import SectionHeader from '../components/SectionHeader'
 
 const About = () => {
@@ -62,6 +62,16 @@ const About = () => {
           <p className="boot text-base sm:text-lg text-dim max-w-2xl mx-auto leading-relaxed mt-6" style={{ animationDelay: '0.3s' }}>
             A veteran-owned federal contractor built on military values, federal contracting expertise, and an unwavering commitment to mission success.
           </p>
+          <div className="boot mt-8 flex justify-center" style={{ animationDelay: '0.42s' }}>
+            <a
+              href="/Gridstream-Capabilities-Statement.pdf"
+              download="Gridstream-Capabilities-Statement.pdf"
+              className="glass-button-secondary"
+            >
+              <FileDown className="w-4 h-4 text-primary-green" strokeWidth={2} />
+              Download Capabilities Statement
+            </a>
+          </div>
         </div>
       </section>
 
