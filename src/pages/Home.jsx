@@ -78,8 +78,8 @@ const Home = () => {
           <SectionHeader
             index="01"
             eyebrow="Capabilities"
-            title="From requirement to"
-            accent="result."
+            title="One prime, every"
+            accent="domain."
             subtitle="Comprehensive federal contracting solutions backed by veteran leadership and a commitment to mission success."
           />
 
