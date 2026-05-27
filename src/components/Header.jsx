@@ -18,24 +18,18 @@ const Header = () => {
       <nav className={`max-w-7xl mx-auto glass-nav transition-all duration-500 ease-in-out overflow-hidden ${
         isMenuOpen ? 'shadow-2xl' : ''
       }`}>
-        <div className="flex items-center justify-between">
-          {/* Logo + live status */}
-          <div className="flex items-center gap-4">
-            <Link to="/" className="flex items-center">
-              <img
-                src="/Gridstream White.svg"
-                alt="Gridstream"
-                className="h-6 w-auto"
-              />
-            </Link>
-            <span className="hidden lg:flex items-center gap-1.5 pl-4 border-l border-white/10">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary-green" style={{ boxShadow: '0 0 8px #48D8A0', animation: 'gridPulse 1.6s ease-in-out infinite' }} />
-              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">Systems Nominal</span>
-            </span>
-          </div>
+        <div className="relative flex items-center justify-between">
+          {/* Logo */}
+          <Link to="/" className="flex items-center">
+            <img
+              src="/Gridstream White.svg"
+              alt="Gridstream"
+              className="h-6 w-auto"
+            />
+          </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1">
+          {/* Desktop Navigation — absolutely centered in the bar */}
+          <div className="hidden md:flex items-center gap-1 md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
             {navigation.map((item) => (
               <Link
                 key={item.name}

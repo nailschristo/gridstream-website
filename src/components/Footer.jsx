@@ -19,13 +19,13 @@ const Footer = () => {
               A veteran-owned firm specializing in federal government contracting — delivering excellence across construction, engineering, logistics, material sourcing, and program management.
             </p>
             <div className="flex flex-wrap gap-2">
-              <span className="px-3 py-1 bg-primary-green/[0.12] text-primary-green text-xs rounded-full border border-primary-green/30 font-medium tracking-wide">
+              <span className="px-2.5 py-1 bg-primary-green/[0.12] text-primary-green text-xs rounded border border-primary-green/30 tracking-wide">
                 SDVOSB Certified
               </span>
-              <span className="px-3 py-1 bg-primary-green/[0.12] text-primary-green text-xs rounded-full border border-primary-green/30 font-medium tracking-wide">
+              <span className="px-2.5 py-1 bg-primary-green/[0.12] text-primary-green text-xs rounded border border-primary-green/30 tracking-wide">
                 VOSB Certified
               </span>
-              <span className="px-3 py-1 bg-accent-blue/[0.12] text-accent-blue text-xs rounded-full border border-accent-blue/30 font-medium tracking-wide">
+              <span className="px-2.5 py-1 bg-accent-blue/[0.12] text-accent-blue text-xs rounded border border-accent-blue/30 tracking-wide">
                 NC HUB Certified
               </span>
             </div>
