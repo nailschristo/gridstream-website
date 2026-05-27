@@ -16,11 +16,14 @@ const Footer = () => {
               />
             </div>
             <p className="text-white/60 mb-5 max-w-md leading-relaxed text-sm">
-              A Service-Disabled Veteran Owned Small Business specializing in federal government contracting — delivering excellence across construction, engineering, logistics, material sourcing, and program management.
+              A veteran-owned firm specializing in federal government contracting — delivering excellence across construction, engineering, logistics, material sourcing, and program management.
             </p>
             <div className="flex flex-wrap gap-2">
               <span className="px-3 py-1 bg-primary-green/[0.12] text-primary-green text-xs rounded-full border border-primary-green/30 font-medium tracking-wide">
                 SDVOSB Certified
+              </span>
+              <span className="px-3 py-1 bg-primary-green/[0.12] text-primary-green text-xs rounded-full border border-primary-green/30 font-medium tracking-wide">
+                VOSB Certified
               </span>
               <span className="px-3 py-1 bg-accent-blue/[0.12] text-accent-blue text-xs rounded-full border border-accent-blue/30 font-medium tracking-wide">
                 NC HUB Certified
@@ -81,7 +84,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-white/[0.08] mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-white/40 text-sm">
-            © {new Date().getFullYear()} Gridstream. All rights reserved. Service-Disabled Veteran Owned Small Business.
+            © {new Date().getFullYear()} Gridstream. All rights reserved.
           </p>
         </div>
       </div>

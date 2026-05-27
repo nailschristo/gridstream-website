@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import { Building2, Shield, Wrench, BarChart3, Award, Landmark, BookOpen, Star, Package } from 'lucide-react'
+import { Building2, Shield, ShieldCheck, Wrench, BarChart3, Award, Landmark, BookOpen, Star, Package, Code2 } from 'lucide-react'
 import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
 
@@ -31,19 +31,19 @@ const Home = () => {
       title: 'Program Management',
       description: 'End-to-end contract execution, oversight, and delivery management ensuring performance, compliance, and mission success.',
       icon: BarChart3
+    },
+    {
+      title: 'Software & Implementation',
+      description: 'Custom software development, systems integration, and implementation services supporting federal modernization and mission requirements.',
+      icon: Code2
     }
   ]
 
   const differentiators = [
     {
-      label: 'SDVOSB Certified',
-      description: 'Eligible for set-aside and sole-source federal contracts',
+      label: 'Proven Past Performance',
+      description: 'A disciplined track record of on-time, on-spec delivery across federal contracts',
       icon: Award
-    },
-    {
-      label: 'NC HUB Certified',
-      description: 'Recognized Historically Underutilized Business',
-      icon: Landmark
     },
     {
       label: 'Federal Marketplace Expertise',
@@ -60,11 +60,11 @@ const Home = () => {
   return (
     <div>
       <Helmet>
-        <title>Gridstream | Federal Government Contracting | SDVOSB | NC HUB Certified</title>
-        <meta name="description" content="Gridstream is a Service-Disabled Veteran Owned Small Business (SDVOSB) and NC HUB Certified firm delivering federal contracting excellence — construction, engineering, logistics, material sourcing, and program management. CAGE: 12H34 | UEI: TW2PWH3N98N7" />
-        <meta name="keywords" content="federal government contracting, SDVOSB, service-disabled veteran owned small business, NC HUB certified, prime contracting, construction contracts, engineering contracts, logistics, material sourcing, tactical equipment supply, program management, veteran owned business" />
-        <meta property="og:title" content="Gridstream | Federal Government Contracting | SDVOSB" />
-        <meta property="og:description" content="SDVOSB & NC HUB Certified federal contractor delivering construction, engineering, logistics, material sourcing, and program management." />
+        <title>Gridstream | Federal Government Contracting | SDVOSB · VOSB · NC HUB Certified</title>
+        <meta name="description" content="Gridstream is an SDVOSB, VOSB, and NC HUB certified firm delivering federal contracting excellence — construction, engineering, logistics, material sourcing, and program management. CAGE: 12H34 | UEI: TW2PWH3N98N7" />
+        <meta name="keywords" content="federal government contracting, SDVOSB, VOSB, veteran owned small business, service-disabled veteran owned small business, NC HUB certified, prime contracting, construction contracts, engineering contracts, logistics, material sourcing, tactical equipment supply, program management, veteran owned business" />
+        <meta property="og:title" content="Gridstream | Federal Government Contracting | SDVOSB · VOSB · NC HUB" />
+        <meta property="og:description" content="SDVOSB, VOSB & NC HUB certified federal contractor delivering construction, engineering, logistics, material sourcing, and program management." />
         <meta property="og:url" content="https://gridstream.ai/" />
         <link rel="canonical" href="https://gridstream.ai/" />
       </Helmet>
@@ -110,10 +110,10 @@ const Home = () => {
             eyebrow="Why Gridstream"
             title="Military discipline, federal"
             accent="results."
-            subtitle="As a Service-Disabled Veteran Owned Small Business, Gridstream brings the discipline, integrity, and mission-focus of military service to every federal contract."
+            subtitle="Gridstream brings the discipline, integrity, and mission-focus of military service to every federal contract."
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-12 sm:mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-16">
             {differentiators.map((item, index) => (
               <div
                 key={index}
@@ -136,7 +136,7 @@ const Home = () => {
           <div className="glass-card max-w-2xl mx-auto" data-reveal>
             <h3 className="text-xl font-display font-semibold mb-2 text-white text-center">Ready to Work Together?</h3>
             <p className="text-dim mb-6 text-sm sm:text-base leading-relaxed text-center">
-              Whether you're a contracting officer seeking a capable SDVOSB prime or a company looking for a trusted teaming partner — Gridstream is ready to deliver.
+              Whether you're a contracting officer seeking a capable prime or a company looking for a trusted teaming partner — Gridstream is ready to deliver.
             </p>
 
             <div className="border-t border-white/[0.08] pt-5 mb-6">
@@ -181,21 +181,21 @@ const Home = () => {
                   <Award className="w-7 h-7 text-primary-green" strokeWidth={1.5} />
                 </div>
                 <h4 className="text-white font-display font-semibold mb-2">SDVOSB Certified</h4>
-                <p className="text-dim text-sm leading-relaxed">Service-Disabled Veteran Owned Small Business — eligible for federal set-aside and sole-source awards</p>
+                <p className="text-dim text-sm leading-relaxed">Service-Disabled Veteran-Owned Business — eligible for federal set-aside and sole-source awards</p>
               </div>
               <div className="flex flex-col items-center border-t sm:border-t-0 sm:border-x border-white/[0.08] pt-6 sm:pt-0 sm:px-6">
+                <div className="w-14 h-14 bg-primary-green/[0.12] rounded-md flex items-center justify-center mb-4 border border-primary-green/20">
+                  <ShieldCheck className="w-7 h-7 text-primary-green" strokeWidth={1.5} />
+                </div>
+                <h4 className="text-white font-display font-semibold mb-2">VOSB Certified</h4>
+                <p className="text-dim text-sm leading-relaxed">Veteran-Owned Small Business — verified for the VA's "Vets First" program and veteran set-aside awards</p>
+              </div>
+              <div className="flex flex-col items-center border-t sm:border-t-0 sm:border-l border-white/[0.08] pt-6 sm:pt-0 sm:pl-6">
                 <div className="w-14 h-14 bg-accent-blue/[0.12] rounded-md flex items-center justify-center mb-4 border border-accent-blue/20">
                   <Landmark className="w-7 h-7 text-accent-blue" strokeWidth={1.5} />
                 </div>
                 <h4 className="text-white font-display font-semibold mb-2">NC HUB Certified</h4>
                 <p className="text-dim text-sm leading-relaxed">North Carolina Historically Underutilized Business — recognized for state and federal procurement opportunities</p>
-              </div>
-              <div className="flex flex-col items-center border-t sm:border-t-0 border-white/[0.08] pt-6 sm:pt-0">
-                <div className="w-14 h-14 bg-primary-green/[0.12] rounded-md flex items-center justify-center mb-4 border border-primary-green/20">
-                  <Star className="w-7 h-7 text-primary-green" strokeWidth={1.5} />
-                </div>
-                <h4 className="text-white font-display font-semibold mb-2">Veteran-Led</h4>
-                <p className="text-dim text-sm leading-relaxed">Founded and operated by service-disabled veterans committed to excellence, integrity, and mission success</p>
               </div>
             </div>
           </div>
@@ -210,7 +210,7 @@ const Home = () => {
               Ready to compete and win in the <span className="text-primary-green">federal marketplace?</span>
             </h2>
             <p className="text-dim text-sm sm:text-base md:text-lg mb-8 leading-relaxed max-w-2xl mx-auto">
-              Partner with Gridstream and leverage our SDVOSB status, federal contracting expertise, and veteran-led team to pursue and win government contracts with confidence.
+              Partner with Gridstream and leverage our federal contracting expertise and veteran-led team to pursue and win government contracts with confidence.
             </p>
             <Link to="/contact" className="glass-button-primary">
               Start the conversation →

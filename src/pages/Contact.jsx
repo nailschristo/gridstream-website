@@ -178,11 +178,11 @@ const Contact = () => {
   return (
     <div>
       <Helmet>
-        <title>Contact Gridstream | Partner With an SDVOSB Federal Contractor</title>
-        <meta name="description" content="Contact Gridstream — a Service-Disabled Veteran Owned Small Business (SDVOSB) and NC HUB Certified federal contractor. Reach us at contact@gridstream.ai or (631) 873-9814. CAGE: 12H34 | UEI: TW2PWH3N98N7" />
-        <meta name="keywords" content="contact Gridstream, SDVOSB contractor contact, federal contracting inquiry, teaming partner, construction contracts, engineering, logistics, material sourcing, veteran owned business contact" />
-        <meta property="og:title" content="Contact Gridstream | SDVOSB Federal Contractor" />
-        <meta property="og:description" content="Partner with Gridstream — an SDVOSB & NC HUB Certified federal contractor. Contact us for construction, engineering, logistics, material sourcing, and teaming opportunities." />
+        <title>Contact Gridstream | SDVOSB · VOSB · NC HUB Certified Federal Contractor</title>
+        <meta name="description" content="Contact Gridstream — an SDVOSB, VOSB, and NC HUB certified federal contractor. Reach us at contact@gridstream.ai or (631) 873-9814. CAGE: 12H34 | UEI: TW2PWH3N98N7" />
+        <meta name="keywords" content="contact Gridstream, SDVOSB contractor contact, VOSB, NC HUB certified, federal contracting inquiry, teaming partner, construction contracts, engineering, logistics, material sourcing, veteran owned business contact" />
+        <meta property="og:title" content="Contact Gridstream | SDVOSB · VOSB · NC HUB Certified" />
+        <meta property="og:description" content="Partner with Gridstream — an SDVOSB, VOSB & NC HUB certified federal contractor. Contact us for construction, engineering, logistics, material sourcing, and teaming opportunities." />
         <meta property="og:url" content="https://gridstream.ai/contact" />
         <link rel="canonical" href="https://gridstream.ai/contact" />
       </Helmet>
@@ -198,7 +198,7 @@ const Contact = () => {
             Partner with <span className="text-primary-green">Gridstream</span>
           </h1>
           <p className="boot text-base sm:text-lg text-dim max-w-2xl mx-auto leading-relaxed mt-6" style={{ animationDelay: '0.3s' }}>
-            Whether you're a contracting officer seeking a capable SDVOSB prime, or a company looking for a trusted teaming partner — Gridstream is ready to deliver.
+            Whether you're a contracting officer seeking a capable veteran-owned prime, or a company looking for a trusted teaming partner — Gridstream is ready to deliver.
           </p>
         </div>
       </section>
@@ -248,11 +248,7 @@ const Contact = () => {
                 <ul className="space-y-3 text-dim">
                   <li className="flex items-start space-x-3">
                     <div className="w-2 h-2 bg-primary-green rounded-full mt-2 flex-shrink-0"></div>
-                    <span>SDVOSB certified — eligible for set-aside and sole-source federal awards</span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-primary-green rounded-full mt-2 flex-shrink-0"></div>
-                    <span>NC HUB certified — recognized Historically Underutilized Business</span>
+                    <span>SDVOSB, VOSB &amp; NC HUB certified — eligible for federal set-aside, sole-source, and state HUB awards</span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <div className="w-2 h-2 bg-primary-green rounded-full mt-2 flex-shrink-0"></div>
@@ -283,6 +279,7 @@ const Contact = () => {
                   </div>
                   <div className="flex flex-wrap gap-2 pt-2">
                     <span className="px-2.5 py-1 bg-primary-green/[0.12] text-primary-green text-xs rounded border border-primary-green/30 tracking-wide">SDVOSB</span>
+                    <span className="px-2.5 py-1 bg-primary-green/[0.12] text-primary-green text-xs rounded border border-primary-green/30 tracking-wide">VOSB</span>
                     <span className="px-2.5 py-1 bg-accent-blue/[0.12] text-accent-blue text-xs rounded border border-accent-blue/30 tracking-wide">NC HUB</span>
                   </div>
                 </div>

@@ -214,8 +214,6 @@ const Hero = () => {
         {datumDivider}
         <Datum label="UEI" value="TW2PWH3N98N7" />
         {datumDivider}
-        <Datum label="Certifications" value="SDVOSB · VOSB" />
-        {datumDivider}
         <Datum label="Status" value="● Operational" mintValue />
       </div>
     </section>
