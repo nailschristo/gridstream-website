@@ -196,7 +196,7 @@ const Hero = () => {
 
         <div className="boot flex flex-col sm:flex-row gap-3" style={{ animationDelay: '0.86s' }}>
           <Link to="/contact" className="glass-button-primary">Start a contract</Link>
-          <Link to="/about" className="glass-button-secondary">Capability statement →</Link>
+          <Link to="/about" className="glass-button-secondary">Capabilities statement →</Link>
         </div>
       </div>
 
