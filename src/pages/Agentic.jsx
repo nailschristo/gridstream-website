@@ -185,21 +185,29 @@ const Agentic = () => {
           Autonomous Systems Group — Agentic Operations
         </div>
 
-        {/* agent mesh visualization */}
+        {/* agent mesh visualization — right edge tracks viewport on small
+            screens, but anchors to a ~1600px design width on wide screens so
+            the mesh doesn't drift into the far-right corner on big monitors.
+            On lg+ the mesh is also nudged ~40px down so the top "INGEST"
+            label clears the telemetry tile stack. */}
         <div
-          className="boot-fade absolute pointer-events-none"
+          className="boot-fade absolute pointer-events-none top-1/2 lg:top-[calc(50%_+_40px)]"
           style={{
             animationDelay: '0.3s',
-            right: '-4%', top: '50%', transform: 'translateY(-50%)',
+            right: 'max(-4%, calc(50% - 820px))',
+            transform: 'translateY(-50%)',
             width: 'min(720px, 60vw)', aspectRatio: '1 / 1', zIndex: 1,
           }}
         >
           <AgentMesh />
         </div>
 
-        {/* telemetry tiles (top-right) */}
+        {/* telemetry tiles (top-right) — anchored to the same design width
+            as the mesh so they don't get isolated in the far corner. */}
         <div className="hidden lg:flex" style={{
-          position: 'absolute', top: 110, right: 56, zIndex: 3,
+          position: 'absolute', top: 110,
+          right: 'max(56px, calc(50% - 760px))',
+          zIndex: 3,
           flexDirection: 'column', gap: 14, alignItems: 'flex-end',
         }}>
           <div style={{ display: 'flex', gap: 14 }}>

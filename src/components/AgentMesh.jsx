@@ -85,6 +85,11 @@ export default function AgentMesh({ showLabels = true, showCompass = true }) {
 
       {/* outer compass ticks */}
       {showCompass && Array.from({ length: 36 }).map((_, i) => {
+        // Skip the north cardinal tick (angle 270, i=27) — on the Agentic
+        // page hero, this mint tick lands directly above the orchestrator
+        // and inside the top-right AGENTS telemetry tile, reading as a
+        // stray vertical streak in the box.
+        if (i === 27) return null
         const a = (i * 10 * Math.PI) / 180
         const x1 = ORCH.x + Math.cos(a) * 282
         const y1 = ORCH.y + Math.sin(a) * 282
