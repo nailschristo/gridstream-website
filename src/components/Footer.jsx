@@ -16,7 +16,7 @@ const Footer = () => {
               />
             </div>
             <p className="text-white/60 mb-5 max-w-md leading-relaxed text-sm">
-              A veteran-owned firm specializing in federal government contracting — delivering excellence across construction, engineering, logistics, material sourcing, and program management.
+              A veteran-owned firm specializing in federal government contracting — delivering excellence across training &amp; graphic design, engineering, logistics, material sourcing, and program management.
             </p>
             <div className="flex flex-wrap gap-2">
               <span className="px-2.5 py-1 bg-primary-green/[0.12] text-primary-green text-xs rounded border border-primary-green/30 tracking-wide">
@@ -43,6 +43,11 @@ const Footer = () => {
               <li>
                 <Link to="/about" className="text-white/70 hover:text-primary-green transition-colors text-sm">
                   About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/agentic" className="text-white/70 hover:text-primary-green transition-colors text-sm">
+                  Agentic Workflows
                 </Link>
               </li>
               <li>

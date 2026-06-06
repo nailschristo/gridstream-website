@@ -7,6 +7,7 @@ import ScrollToTop from './components/ScrollToTop'
 import ScrollReveal from './components/ScrollReveal'
 import Home from './pages/Home'
 import About from './pages/About'
+import Agentic from './pages/Agentic'
 import Contact from './pages/Contact'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
+              <Route path="/agentic" element={<Agentic />} />
               <Route path="/contact" element={<Contact />} />
             </Routes>
           </main>

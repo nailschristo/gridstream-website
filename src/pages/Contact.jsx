@@ -89,13 +89,13 @@ const Contact = () => {
 
   // Form data — preserved for when the form is re-enabled
   const services = [
-    'Prime Contracting', 'Construction', 'Engineering',
+    'Prime Contracting', 'Training & Graphic Design', 'Engineering',
     'Logistics', 'Material Sourcing', 'Fuel Supply Contracts',
     'Tactical Equipment Supply', 'Program Management', 'Teaming Opportunities'
   ]
   const industries = [
     'Federal Government', 'Department of Defense', 'State & Local Government',
-    'Defense Contracting', 'Construction & Engineering', 'Technology', 'Other'
+    'Defense Contracting', 'Education & Training', 'Technology', 'Other'
   ]
 
   // Contact form component — hidden until ready to enable
@@ -180,9 +180,9 @@ const Contact = () => {
       <Helmet>
         <title>Contact Gridstream | SDVOSB · VOSB · NC HUB Certified Federal Contractor</title>
         <meta name="description" content="Contact Gridstream — an SDVOSB, VOSB, and NC HUB certified federal contractor. Reach us at contact@gridstream.ai or (631) 873-9814. CAGE: 12H34 | UEI: TW2PWH3N98N7" />
-        <meta name="keywords" content="contact Gridstream, SDVOSB contractor contact, VOSB, NC HUB certified, federal contracting inquiry, teaming partner, construction contracts, engineering, logistics, material sourcing, veteran owned business contact" />
+        <meta name="keywords" content="contact Gridstream, SDVOSB contractor contact, VOSB, NC HUB certified, federal contracting inquiry, teaming partner, training development, graphic design, engineering, logistics, material sourcing, veteran owned business contact" />
         <meta property="og:title" content="Contact Gridstream | SDVOSB · VOSB · NC HUB Certified" />
-        <meta property="og:description" content="Partner with Gridstream — an SDVOSB, VOSB & NC HUB certified federal contractor. Contact us for construction, engineering, logistics, material sourcing, and teaming opportunities." />
+        <meta property="og:description" content="Partner with Gridstream — an SDVOSB, VOSB & NC HUB certified federal contractor. Contact us for training &amp; graphic design, engineering, logistics, material sourcing, and teaming opportunities." />
         <meta property="og:url" content="https://gridstream.ai/contact" />
         <link rel="canonical" href="https://gridstream.ai/contact" />
       </Helmet>
@@ -256,7 +256,7 @@ const Contact = () => {
                   </li>
                   <li className="flex items-start space-x-3">
                     <div className="w-2 h-2 bg-primary-green rounded-full mt-2 flex-shrink-0"></div>
-                    <span>Full-spectrum capabilities — construction, engineering, logistics, and material sourcing</span>
+                    <span>Full-spectrum capabilities — training development, engineering, logistics, and material sourcing</span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <div className="w-2 h-2 bg-primary-green rounded-full mt-2 flex-shrink-0"></div>

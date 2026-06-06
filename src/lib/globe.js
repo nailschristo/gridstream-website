@@ -28,6 +28,7 @@ export class Globe {
       cameraFov: 28,
       rotationSpeed: 0.0007,
       tilt: 0.32,
+      pitch: 0,
       yaw: 0.4,
       autoRotate: true,
       rings: false,
@@ -69,6 +70,7 @@ export class Globe {
     this.container.appendChild(this.renderer.domElement)
 
     this.root = new THREE.Group()
+    this.root.rotation.x = this.opts.pitch
     this.root.rotation.z = this.opts.tilt
     this.scene.add(this.root)
 
@@ -242,26 +244,77 @@ export class Globe {
   }
 
   _buildPoints() {
+    // Tactical station marker — bright pinhead core, two concentric radar-ping
+    // rings flat on the surface, plus a thin vertical beacon beam pointing
+    // radially out so each node reads as a transmitter, not a bump.
     this._points = []
     const defaultColor = new THREE.Color(this.opts.accentColor)
+    const r = this.opts.radius
     for (const p of this.opts.points) {
       const col = p.color != null ? new THREE.Color(p.color) : defaultColor
-      const pos = this._llToVec(p.lat, p.lng, this.opts.radius * 1.005)
-      const dot = new THREE.Mesh(
-        new THREE.SphereGeometry(0.013, 14, 14),
+      const pos = this._llToVec(p.lat, p.lng, r * 1.006)
+      const normal = pos.clone().normalize()
+
+      // pinhead core
+      const core = new THREE.Mesh(
+        new THREE.SphereGeometry(0.009, 14, 14),
         new THREE.MeshBasicMaterial({ color: col })
       )
-      dot.position.copy(pos)
-      this.earth.add(dot)
-      // halo ring, oriented to face outward
-      const halo = new THREE.Mesh(
-        new THREE.RingGeometry(0.022, 0.045, 32),
-        new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.55, side: THREE.DoubleSide })
+      core.position.copy(pos)
+      this.earth.add(core)
+
+      // inner ring — quick, tight ping
+      const ring1 = new THREE.Mesh(
+        new THREE.RingGeometry(0.020, 0.024, 48),
+        new THREE.MeshBasicMaterial({
+          color: col, transparent: true, opacity: 0.95,
+          side: THREE.DoubleSide,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false,
+        })
       )
-      halo.position.copy(pos)
-      halo.lookAt(0, 0, 0)
-      this.earth.add(halo)
-      this._points.push({ dot, halo, phase: Math.random() * Math.PI * 2 })
+      ring1.position.copy(pos)
+      ring1.lookAt(0, 0, 0)
+      this.earth.add(ring1)
+
+      // outer ring — slower, wider radar wave (out of phase)
+      const ring2 = new THREE.Mesh(
+        new THREE.RingGeometry(0.028, 0.031, 64),
+        new THREE.MeshBasicMaterial({
+          color: col, transparent: true, opacity: 0.6,
+          side: THREE.DoubleSide,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false,
+        })
+      )
+      ring2.position.copy(pos)
+      ring2.lookAt(0, 0, 0)
+      this.earth.add(ring2)
+
+      // beacon beam — short vertex-colored line going radially outward,
+      // fades to nothing at the tip so it reads as a transmitter beam
+      const beamLen = 0.16
+      const tip = pos.clone().add(normal.clone().multiplyScalar(beamLen))
+      const beamGeo = new THREE.BufferGeometry().setFromPoints([pos, tip])
+      const beamCols = new Float32Array([
+        col.r,        col.g,        col.b,
+        col.r * 0.0,  col.g * 0.0,  col.b * 0.0,
+      ])
+      beamGeo.setAttribute('color', new THREE.BufferAttribute(beamCols, 3))
+      const beam = new THREE.Line(
+        beamGeo,
+        new THREE.LineBasicMaterial({
+          vertexColors: true, transparent: true,
+          opacity: 0.75, blending: THREE.AdditiveBlending,
+          depthWrite: false,
+        })
+      )
+      this.earth.add(beam)
+
+      this._points.push({
+        core, ring1, ring2, beam,
+        phase: Math.random() * Math.PI * 2,
+      })
     }
   }
 
@@ -323,12 +376,24 @@ export class Globe {
       this.earth.rotation.y += this.opts.rotationSpeed * 16
     }
 
-    // pulse halos
+    // pulse tactical-station markers — two rings on offset phases (radar
+    // ping), beam opacity breathes in sync with the inner ring.
     for (let i = 0; i < this._points.length; i++) {
       const p = this._points[i]
-      const s = 1 + 0.45 * (0.5 + 0.5 * Math.sin(t * 0.002 + p.phase))
-      p.halo.scale.setScalar(s)
-      p.halo.material.opacity = 0.55 * (1 - (s - 1) / 0.9)
+      const u = t * 0.0018 + p.phase
+
+      // inner ring — tighter ping
+      const s1 = 1 + 0.9 * (0.5 + 0.5 * Math.sin(u))
+      p.ring1.scale.setScalar(s1)
+      p.ring1.material.opacity = 0.95 * Math.max(0, 1 - (s1 - 1) / 1.8)
+
+      // outer ring — wider, slower, out of phase
+      const s2 = 1 + 1.6 * (0.5 + 0.5 * Math.sin(u + Math.PI))
+      p.ring2.scale.setScalar(s2)
+      p.ring2.material.opacity = 0.6 * Math.max(0, 1 - (s2 - 1) / 3.2)
+
+      // beacon beam — gentle breathing
+      p.beam.material.opacity = 0.45 + 0.35 * (0.5 + 0.5 * Math.sin(u))
     }
 
     // animate arcs

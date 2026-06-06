@@ -37,6 +37,11 @@ const ALL_ROUTES = [
   ['raleigh', 'stuttgart'], ['raleigh', 'bahrain'], ['sandiego', 'tokyo'],
   ['norfolk', 'london'], ['honolulu', 'guam'], ['anchorage', 'djibouti'],
   ['tokyo', 'bahrain'], ['raleigh', 'diegoG'],
+  // densified network — more freight lanes lit up
+  ['raleigh', 'tokyo'], ['norfolk', 'bahrain'], ['sandiego', 'honolulu'],
+  ['honolulu', 'tokyo'], ['anchorage', 'tokyo'], ['stuttgart', 'bahrain'],
+  ['stuttgart', 'djibouti'], ['london', 'bahrain'], ['guam', 'djibouti'],
+  ['sandiego', 'guam'], ['bahrain', 'diegoG'], ['tokyo', 'diegoG'],
 ]
 const ALL_NODES = ['raleigh', 'stuttgart', 'bahrain', 'tokyo', 'sandiego', 'norfolk', 'honolulu', 'anchorage', 'guam', 'djibouti', 'london', 'diegoG']
 
@@ -134,7 +139,8 @@ const Hero = () => {
           arcs, points,
           arcColor: 0x48d8a0, accentColor: 0x48d8a0, atmosphereColor: 0x48d8a0,
           atmosphereIntensity: 1.25, graticuleOpacity: 0.34, innerColor: 0x07111d,
-          tilt: 0.36, yaw: -0.7, rotationSpeed: 0.0005,
+          tilt: 0.36, pitch: 0.4, yaw: -0.7, rotationSpeed: 0.0005,
+          cameraDistance: 3.8,
         }}
         style={{ left: '38%', right: '-12%', top: '-10%', bottom: '-6%' }}
       />

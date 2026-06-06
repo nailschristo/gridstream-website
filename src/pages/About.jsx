@@ -29,7 +29,7 @@ const About = () => {
   ]
 
   const capabilities = [
-    'Construction Contracts', 'Design-Build Projects', 'Facility Renovation',
+    'Online Training Modules', 'Instructional Design', 'Graphic Design',
     'Civil Engineering', 'Mechanical Engineering', 'Systems Engineering',
     'Logistics & Supply Chain', 'Transportation & Distribution', 'Fuel Supply Contracts',
     'Tactical Equipment Supply', 'Material Procurement', 'Program Management',
@@ -41,8 +41,8 @@ const About = () => {
     <div>
       <Helmet>
         <title>About Gridstream | SDVOSB · VOSB · NC HUB Certified Federal Contractor</title>
-        <meta name="description" content="Learn about Gridstream — an SDVOSB, VOSB, and NC HUB certified federal contractor specializing in construction, engineering, logistics, material sourcing, and program management. CAGE: 12H34 | UEI: TW2PWH3N98N7" />
-        <meta name="keywords" content="about Gridstream, SDVOSB federal contractor, VOSB, veteran owned small business, NC HUB certified, veteran owned business, prime contracting, construction contracts, engineering contracts, logistics, material sourcing, tactical equipment supply, program management, CAGE 12H34" />
+        <meta name="description" content="Learn about Gridstream — an SDVOSB, VOSB, and NC HUB certified federal contractor specializing in training &amp; graphic design, engineering, logistics, material sourcing, and program management. CAGE: 12H34 | UEI: TW2PWH3N98N7" />
+        <meta name="keywords" content="about Gridstream, SDVOSB federal contractor, VOSB, veteran owned small business, NC HUB certified, veteran owned business, prime contracting, online training modules, instructional design, graphic design, training development, engineering contracts, logistics, material sourcing, tactical equipment supply, program management, CAGE 12H34" />
         <meta property="og:title" content="About Gridstream | SDVOSB · VOSB · NC HUB Certified" />
         <meta property="og:description" content="Gridstream is an SDVOSB, VOSB, and NC HUB certified federal contractor — built on military values, proven expertise, and a commitment to mission success." />
         <meta property="og:url" content="https://gridstream.ai/about" />
@@ -87,8 +87,8 @@ const About = () => {
               align="left"
             />
             <div className="space-y-5 text-dim text-sm sm:text-base leading-relaxed" data-reveal>
-              <p>Gridstream is a veteran-owned federal contractor delivering a full spectrum of services across construction, engineering, logistics, and material sourcing. We bring military discipline and strategic expertise to every contract we pursue and perform.</p>
-              <p>We compete for and execute federal contracts with precision — from design-build construction and engineering projects to fuel supply, tactical equipment procurement, and end-to-end program management.</p>
+              <p>Gridstream is a veteran-owned federal contractor delivering a full spectrum of services across training development, engineering, logistics, and material sourcing. We bring military discipline and strategic expertise to every contract we pursue and perform.</p>
+              <p>We compete for and execute federal contracts with precision — from online training modules and graphic design to fuel supply, tactical equipment procurement, and end-to-end program management.</p>
               <p>From prime contracting to tactical equipment supply, Gridstream delivers with the precision, integrity, and accountability that only a veteran-led organization can provide.</p>
             </div>
           </div>
@@ -103,7 +103,7 @@ const About = () => {
               <ul className="space-y-3 text-dim">
                 {[
                   'Eligible for federal set-aside and sole-source contract awards',
-                  'Full-spectrum contract execution — construction, engineering, logistics, and supply',
+                  'Full-spectrum contract execution — training, engineering, logistics, and supply',
                   'Proven teaming network across federal contracting sectors',
                   'Veteran-led leadership with deep federal marketplace expertise',
                 ].map((t) => (

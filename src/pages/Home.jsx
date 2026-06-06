@@ -1,16 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import { Building2, Shield, ShieldCheck, Wrench, BarChart3, Award, Landmark, BookOpen, Star, Package, Code2 } from 'lucide-react'
+import { GraduationCap, Shield, ShieldCheck, Wrench, BarChart3, Award, Landmark, BookOpen, Star, Package, Code2 } from 'lucide-react'
 import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
+import AgentMesh from '../components/AgentMesh'
 
 const Home = () => {
   const services = [
     {
-      title: 'Construction',
-      description: 'Federal construction contracts executed with precision — from design-build and new construction to renovation and facility improvements.',
-      icon: Building2
+      title: 'Training & Graphic Design',
+      description: 'Online training modules, instructional design, and visual communications — built for federal workforce learning programs, agency outreach, and policy rollouts.',
+      icon: GraduationCap
     },
     {
       title: 'Engineering',
@@ -61,10 +62,10 @@ const Home = () => {
     <div>
       <Helmet>
         <title>Gridstream | Federal Government Contracting | SDVOSB · VOSB · NC HUB Certified</title>
-        <meta name="description" content="Gridstream is an SDVOSB, VOSB, and NC HUB certified firm delivering federal contracting excellence — construction, engineering, logistics, material sourcing, and program management. CAGE: 12H34 | UEI: TW2PWH3N98N7" />
-        <meta name="keywords" content="federal government contracting, SDVOSB, VOSB, veteran owned small business, service-disabled veteran owned small business, NC HUB certified, prime contracting, construction contracts, engineering contracts, logistics, material sourcing, tactical equipment supply, program management, veteran owned business" />
+        <meta name="description" content="Gridstream is an SDVOSB, VOSB, and NC HUB certified firm delivering federal contracting excellence — training &amp; graphic design, engineering, logistics, material sourcing, and program management. CAGE: 12H34 | UEI: TW2PWH3N98N7" />
+        <meta name="keywords" content="federal government contracting, SDVOSB, VOSB, veteran owned small business, service-disabled veteran owned small business, NC HUB certified, prime contracting, training development, online training modules, instructional design, graphic design, engineering contracts, logistics, material sourcing, tactical equipment supply, program management, veteran owned business" />
         <meta property="og:title" content="Gridstream | Federal Government Contracting | SDVOSB · VOSB · NC HUB" />
-        <meta property="og:description" content="SDVOSB, VOSB & NC HUB certified federal contractor delivering construction, engineering, logistics, material sourcing, and program management." />
+        <meta property="og:description" content="SDVOSB, VOSB & NC HUB certified federal contractor delivering training &amp; graphic design, engineering, logistics, material sourcing, and program management." />
         <meta property="og:url" content="https://gridstream.ai/" />
         <link rel="canonical" href="https://gridstream.ai/" />
       </Helmet>
@@ -98,6 +99,83 @@ const Home = () => {
                 <p className="text-dim text-sm leading-relaxed flex-grow">{service.description}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Spotlight — Agentic Workflows (links to dedicated page) */}
+      <section className="section-padding container-padding border-t border-white/[0.06]">
+        <div className="max-w-7xl mx-auto" data-reveal>
+          <div className="relative overflow-hidden rounded-md border border-white/[0.10] bg-white/[0.035]" style={{ backdropFilter: 'blur(16px) saturate(135%)', WebkitBackdropFilter: 'blur(16px) saturate(135%)' }}>
+            {/* mint corner tick — matches glass-card */}
+            <span className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t border-l border-primary-green/50 opacity-60 pointer-events-none" />
+
+            {/* depth halo behind the mesh */}
+            <div className="absolute inset-0 pointer-events-none" style={{
+              background: 'radial-gradient(ellipse 55% 80% at 82% 50%, rgba(72,216,160,0.10) 0%, rgba(72,216,160,0) 60%)',
+            }} />
+
+            <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr]">
+              {/* Copy left */}
+              <div className="relative p-7 sm:p-10 lg:p-12 flex flex-col justify-center">
+                {/* Eyebrow */}
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="cursor-blink w-1.5 h-1.5 rounded-full bg-primary-green" style={{ boxShadow: '0 0 10px #48D8A0' }} />
+                  <span className="hud-label text-[11px] text-white/55">Featured · New Capability</span>
+                </div>
+
+                <h3 className="font-display font-semibold text-2xl sm:text-3xl md:text-4xl text-white leading-[1.05] mb-4 tracking-tight">
+                  Agentic Workflows for <span className="text-primary-green">federal operations.</span>
+                </h3>
+
+                <p className="text-dim text-sm sm:text-base leading-relaxed mb-6 max-w-xl">
+                  Custom autonomous systems for data manipulation, document processing, and decision-support — designed with audit trails, human-in-the-loop checkpoints, and on-premise deployment options the mission demands.
+                </p>
+
+                <div className="flex flex-wrap gap-2 mb-7">
+                  {[
+                    { label: 'Data Pipelines',         tone: 'mint' },
+                    { label: 'Document Intelligence',  tone: 'mint' },
+                    { label: 'Decision Support',       tone: 'mint' },
+                    { label: 'Consulting',             tone: 'blue' },
+                  ].map((t) => (
+                    <span
+                      key={t.label}
+                      className={
+                        t.tone === 'mint'
+                          ? 'px-2.5 py-1 bg-primary-green/[0.12] text-primary-green text-xs rounded border border-primary-green/30 tracking-wide'
+                          : 'px-2.5 py-1 bg-accent-blue/[0.12] text-accent-blue text-xs rounded border border-accent-blue/30 tracking-wide'
+                      }
+                    >
+                      {t.label}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Link to="/agentic" className="glass-button-primary">
+                    Explore Agentic Workflows →
+                  </Link>
+                  <Link to="/contact" className="glass-button-secondary">
+                    Schedule discovery
+                  </Link>
+                </div>
+              </div>
+
+              {/* Mesh right */}
+              <div className="relative min-h-[260px] sm:min-h-[320px] lg:min-h-[420px] border-t lg:border-t-0 lg:border-l border-white/[0.08] overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="w-[120%] h-[120%] -translate-y-2">
+                    <AgentMesh showLabels={false} showCompass={true} />
+                  </div>
+                </div>
+                {/* HUD label bottom-right */}
+                <div className="absolute bottom-3 right-4 flex items-center gap-2 pointer-events-none">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary-green" style={{ boxShadow: '0 0 8px #48D8A0', animation: 'gridPulse 1.6s ease-in-out infinite' }} />
+                  <span className="font-mono text-[10px] tracking-[0.18em] uppercase text-primary-green">Mesh · Live</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
