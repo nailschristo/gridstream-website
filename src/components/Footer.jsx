@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { SHOW_AGENTIC } from '../config'
 
 const Footer = () => {
   return (
@@ -45,11 +46,13 @@ const Footer = () => {
                   About Us
                 </Link>
               </li>
-              <li>
-                <Link to="/agentic" className="text-white/70 hover:text-primary-green transition-colors text-sm">
-                  Agentic Workflows
-                </Link>
-              </li>
+              {SHOW_AGENTIC && (
+                <li>
+                  <Link to="/agentic" className="text-white/70 hover:text-primary-green transition-colors text-sm">
+                    Agentic Workflows
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link to="/contact" className="text-white/70 hover:text-primary-green transition-colors text-sm">
                   Contact

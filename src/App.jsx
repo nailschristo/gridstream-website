@@ -9,6 +9,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Agentic from './pages/Agentic'
 import Contact from './pages/Contact'
+import { SHOW_AGENTIC } from './config'
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
-              <Route path="/agentic" element={<Agentic />} />
+              {SHOW_AGENTIC && <Route path="/agentic" element={<Agentic />} />}
               <Route path="/contact" element={<Contact />} />
             </Routes>
           </main>

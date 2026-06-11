@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { SHOW_AGENTIC } from '../config'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -8,7 +9,7 @@ const Header = () => {
   const navigation = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
-    { name: 'Agentic', href: '/agentic' },
+    ...(SHOW_AGENTIC ? [{ name: 'Agentic', href: '/agentic' }] : []),
     { name: 'Contact', href: '/contact' },
   ]
 

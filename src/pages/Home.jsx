@@ -5,6 +5,7 @@ import { GraduationCap, Shield, ShieldCheck, Wrench, BarChart3, Award, Landmark,
 import Hero from '../components/Hero'
 import SectionHeader from '../components/SectionHeader'
 import AgentMesh from '../components/AgentMesh'
+import { SHOW_AGENTIC } from '../config'
 
 const Home = () => {
   const services = [
@@ -103,7 +104,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Spotlight — Agentic Workflows (links to dedicated page) */}
+      {/* Spotlight — Agentic Workflows — gated by SHOW_AGENTIC; page code kept in src/pages/Agentic.jsx */}
+      {SHOW_AGENTIC && (
       <section className="section-padding container-padding border-t border-white/[0.06]">
         <div className="max-w-7xl mx-auto" data-reveal>
           <div className="relative overflow-hidden rounded-md border border-white/[0.10] bg-white/[0.035]" style={{ backdropFilter: 'blur(16px) saturate(135%)', WebkitBackdropFilter: 'blur(16px) saturate(135%)' }}>
@@ -179,6 +181,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+      )}
 
       {/* Why Gridstream */}
       <section className="section-padding container-padding border-y border-white/[0.06]">
