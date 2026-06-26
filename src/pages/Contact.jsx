@@ -179,7 +179,7 @@ const Contact = () => {
     <div>
       <Helmet>
         <title>Contact Gridstream | SDVOSB · VOSB · NC HUB Certified Federal Contractor</title>
-        <meta name="description" content="Contact Gridstream — an SDVOSB, VOSB, and NC HUB certified federal contractor. Reach us at contact@gridstream.ai or (631) 873-9814. CAGE: 12H34 | UEI: TW2PWH3N98N7" />
+        <meta name="description" content="Contact Gridstream — an SDVOSB, VOSB, and NC HUB certified federal contractor. Reach us at contact@gridstream.ai or (919) 926-7100. CAGE: 12H34 | UEI: TW2PWH3N98N7" />
         <meta name="keywords" content="contact Gridstream, SDVOSB contractor contact, VOSB, NC HUB certified, federal contracting inquiry, teaming partner, training development, graphic design, engineering, logistics, material sourcing, veteran owned business contact" />
         <meta property="og:title" content="Contact Gridstream | SDVOSB · VOSB · NC HUB Certified" />
         <meta property="og:description" content="Partner with Gridstream — an SDVOSB, VOSB & NC HUB certified federal contractor. Contact us for training &amp; graphic design, engineering, logistics, material sourcing, and teaming opportunities." />
@@ -234,8 +234,8 @@ const Contact = () => {
                     </div>
                     <div>
                       <p className="hud-label text-[10px] mb-1">Phone</p>
-                      <a href="tel:+16318739814" className="text-white hover:text-primary-green transition-colors font-medium">
-                        (631) 873-9814
+                      <a href="tel:+19199267100" className="text-white hover:text-primary-green transition-colors font-medium">
+                        (919) 926-7100
                       </a>
                     </div>
                   </div>
