@@ -1,0 +1,42 @@
+<!--
+  Paste-ready HTML for the "Confirm to Requester" node in the Support Intake workflow.
+  In n8n: set the node's "Email Format" to HTML, then paste everything BELOW this
+  comment block into the HTML field.
+-->
+<div style="font-family: Arial, Helvetica, sans-serif; max-width: 600px; margin: 0 auto; color: #18181b;">
+
+  <h2 style="margin:0 0 6px; font-size:20px;">Your service request has been received</h2>
+  <p style="margin:0 0 20px; color:#52525b; font-size:14px; line-height:1.6;">
+    It has been logged and dispatched to our service team. Keep your ticket number for reference:
+  </p>
+
+  <div style="text-align:center; padding:18px; background:#f4f4f5; border:1px solid #e4e4e7; border-radius:8px; margin-bottom:20px;">
+    <div style="font-size:11px; text-transform:uppercase; letter-spacing:2px; color:#71717a; margin-bottom:6px;">Ticket Number</div>
+    <div style="font-family:Consolas,Menlo,monospace; font-size:22px; font-weight:bold; letter-spacing:2px; color:#0d9488;">{{ $('Validate & Enrich').item.json.ticketId }}</div>
+  </div>
+
+  <table cellpadding="0" cellspacing="0" style="width:100%; border-collapse:collapse; font-size:14px; margin-bottom:20px;">
+    <tr>
+      <td style="padding:8px 12px; background:#f4f4f5; font-weight:bold; width:110px; border-bottom:1px solid #e4e4e7;">Urgency</td>
+      <td style="padding:8px 12px; border-bottom:1px solid #e4e4e7;">{{ $('Validate & Enrich').item.json.urgency }}</td>
+    </tr>
+    <tr>
+      <td style="padding:8px 12px; background:#f4f4f5; font-weight:bold;">Equipment</td>
+      <td style="padding:8px 12px;">{{ $('Validate & Enrich').item.json.equipment }}</td>
+    </tr>
+  </table>
+
+  <div style="text-align:center; margin-bottom:20px;">
+    <a href="https://gridstream.ai/support/status?ticket={{ $('Validate & Enrich').item.json.ticketId }}"
+       style="display:inline-block; padding:12px 28px; background:#0d9488; color:#ffffff; text-decoration:none; border-radius:6px; font-size:15px; font-weight:bold;">
+      Track This Ticket
+    </a>
+  </div>
+
+  {{ $('Validate & Enrich').item.json.isEmergency ? '<div style="padding:12px 16px; background:#fef2f2; border:1px solid #fecaca; border-radius:6px; margin-bottom:20px; font-size:14px; color:#991b1b;"><strong>Emergency requests:</strong> if you have not already called, please also phone <a href="tel:+19199267100" style="color:#dc2626; font-weight:bold;">(919) 926-7100</a> now — phone is our fastest emergency channel.</div>' : '' }}
+
+  <p style="margin:0; padding-top:14px; border-top:1px solid #e4e4e7; color:#a1a1aa; font-size:12px; line-height:1.7;">
+    Gridstream LLC &middot; (919) 926-7100 &middot; contact@gridstream.ai<br />
+    SDVOSB &middot; CAGE 12H34 &middot; UEI TW2PWH3N98N7
+  </p>
+</div>

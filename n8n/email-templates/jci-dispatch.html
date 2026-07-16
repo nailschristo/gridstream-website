@@ -1,0 +1,63 @@
+<!--
+  Paste-ready HTML for the "Email JCI Dispatch" node in the Support Intake workflow.
+  In n8n: set the node's "Email Format" to HTML, then paste everything BELOW this
+  comment block into the HTML field. The {{ }} expressions resolve in n8n.
+  Dates render in Central time (Iowa City) via Luxon, e.g. "Wed, Jul 16 at 2:49 PM CDT".
+-->
+<div style="font-family: Arial, Helvetica, sans-serif; max-width: 640px; margin: 0 auto; color: #18181b;">
+
+  {{ $('Validate & Enrich').item.json.isEmergency ? '<div style="background:#dc2626; color:#ffffff; padding:14px 18px; border-radius:8px; font-size:16px; font-weight:bold; margin:0 0 18px;">🚨 EMERGENCY — 30-minute phone response / 4-hour onsite required</div>' : '' }}
+
+  <h2 style="margin:0 0 4px; font-size:20px;">New Service Request</h2>
+  <p style="margin:0 0 18px; color:#71717a; font-size:13px;">
+    Iowa City VA Health Care System &middot; Contract 36C26326Q0707 &middot; Gridstream LLC (prime)
+  </p>
+
+  <table cellpadding="0" cellspacing="0" style="width:100%; border-collapse:collapse; font-size:14px; margin-bottom:22px;">
+    <tr>
+      <td style="padding:9px 12px; background:#f4f4f5; font-weight:bold; width:120px; border-bottom:1px solid #e4e4e7;">Ticket</td>
+      <td style="padding:9px 12px; border-bottom:1px solid #e4e4e7; font-family:Consolas,Menlo,monospace; font-size:15px; letter-spacing:1px;">{{ $('Validate & Enrich').item.json.ticketId }}</td>
+    </tr>
+    <tr>
+      <td style="padding:9px 12px; background:#f4f4f5; font-weight:bold; border-bottom:1px solid #e4e4e7;">Urgency</td>
+      <td style="padding:9px 12px; border-bottom:1px solid #e4e4e7; font-weight:bold; color:{{ $('Validate & Enrich').item.json.isEmergency ? '#dc2626' : '#0d9488' }};">{{ $('Validate & Enrich').item.json.urgency }}{{ $('Validate & Enrich').item.json.isEmergency ? '' : ' — respond within 24 hours' }}</td>
+    </tr>
+    <tr>
+      <td style="padding:9px 12px; background:#f4f4f5; font-weight:bold; border-bottom:1px solid #e4e4e7;">Equipment</td>
+      <td style="padding:9px 12px; border-bottom:1px solid #e4e4e7;">{{ $('Validate & Enrich').item.json.equipment }}</td>
+    </tr>
+    <tr>
+      <td style="padding:9px 12px; background:#f4f4f5; font-weight:bold; border-bottom:1px solid #e4e4e7;">Location</td>
+      <td style="padding:9px 12px; border-bottom:1px solid #e4e4e7;">{{ $('Validate & Enrich').item.json.location || 'Not specified' }}</td>
+    </tr>
+    <tr>
+      <td style="padding:9px 12px; background:#f4f4f5; font-weight:bold; border-bottom:1px solid #e4e4e7;">Submitted</td>
+      <td style="padding:9px 12px; border-bottom:1px solid #e4e4e7;">{{ DateTime.fromISO($('Validate & Enrich').item.json.submittedAt).setZone('America/Chicago').toFormat("ccc, LLL d 'at' h:mm a ZZZZ") }}</td>
+    </tr>
+    <tr>
+      <td style="padding:9px 12px; background:#f4f4f5; font-weight:bold;">SLA due</td>
+      <td style="padding:9px 12px; font-weight:bold; color:{{ $('Validate & Enrich').item.json.isEmergency ? '#dc2626' : '#18181b' }};">{{ DateTime.fromISO($('Validate & Enrich').item.json.slaDue).setZone('America/Chicago').toFormat("ccc, LLL d 'at' h:mm a ZZZZ") }}</td>
+    </tr>
+  </table>
+
+  <h3 style="margin:0 0 6px; font-size:14px; text-transform:uppercase; letter-spacing:1px; color:#71717a;">Issue Description</h3>
+  <div style="padding:12px 14px; background:#fafafa; border-left:3px solid #0d9488; border-radius:4px; margin-bottom:22px; white-space:pre-wrap; font-size:14px; line-height:1.5;">{{ $('Validate & Enrich').item.json.description }}</div>
+
+  <h3 style="margin:0 0 6px; font-size:14px; text-transform:uppercase; letter-spacing:1px; color:#71717a;">Site Contact</h3>
+  <p style="margin:0 0 22px; font-size:14px; line-height:1.7;">
+    <strong>{{ $('Validate & Enrich').item.json.name }}</strong> — {{ $('Validate & Enrich').item.json.role }}<br />
+    Phone: <a href="tel:{{ $('Validate & Enrich').item.json.phone.replace(/\D/g, '') }}" style="color:#0d9488;">{{ $('Validate & Enrich').item.json.phone }}</a><br />
+    Email: <a href="mailto:{{ $('Validate & Enrich').item.json.email }}" style="color:#0d9488;">{{ $('Validate & Enrich').item.json.email }}</a><br />
+    Best time to reach: {{ $('Validate & Enrich').item.json.callback || 'Anytime' }}
+  </p>
+
+  <p style="margin:0 0 6px; font-size:14px;">
+    Please confirm receipt and dispatch to
+    <a href="mailto:tyler@gridstream.ai" style="color:#0d9488;">tyler@gridstream.ai</a> / (631) 873-9814.
+  </p>
+
+  <p style="margin:18px 0 0; padding-top:14px; border-top:1px solid #e4e4e7; color:#a1a1aa; font-size:12px;">
+    Submitted via gridstream.ai/support &middot;
+    <a href="https://gridstream.ai/support/status?ticket={{ $('Validate & Enrich').item.json.ticketId }}" style="color:#0d9488;">Live ticket status</a>
+  </p>
+</div>

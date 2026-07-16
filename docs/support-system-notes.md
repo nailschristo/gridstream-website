@@ -49,6 +49,7 @@ SMS ack link → n8n ack webhook (GET) → stamps Acknowledged At (idempotent)
 | Config | `src/config.js` — SHOW_SUPPORT flag, webhook URLs, SUPPORT_ACCESS_CODE |
 | Netlify form | hidden `support` form registered in `index.html` |
 | Workflow JSON | `n8n/1-support-intake.json`, `n8n/2-support-status.json`, `n8n/3-support-ack.json` |
+| Email templates | `n8n/email-templates/*.html` — paste-ready HTML for the JCI dispatch + requester confirmation nodes (nodes set to HTML format; the workflow JSON still has the older plain-text versions) |
 | Airtable setup script | `scripts/create-airtable-base.sh` (standalone-base variant; table was actually created inside Gridstream Hub via API) |
 
 ⚠️ The live n8n workflows were imported and then **hand-tweaked in the n8n
