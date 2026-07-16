@@ -58,9 +58,16 @@ const Footer = () => {
                   Contact
                 </Link>
               </li>
-              {/* /support intentionally has no nav/footer link — it's a private,
-                  access-code-gated client portal reached via bookmark.
+              {/* /support (the request form) intentionally has no nav/footer
+                  link — it's a private, access-code-gated client portal
+                  reached via bookmark. The status checker below is safe to
+                  expose: it reveals nothing without an unguessable ticket ID.
                   See docs/support-system-notes.md */}
+              <li>
+                <Link to="/support/status" className="text-white/70 hover:text-primary-green transition-colors text-sm">
+                  Check Ticket Status
+                </Link>
+              </li>
             </ul>
           </div>
 

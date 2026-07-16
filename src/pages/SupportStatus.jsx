@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { format } from 'date-fns'
-import { Search, CheckCircle2, Circle, AlertTriangle, ArrowLeft } from 'lucide-react'
+import { Search, CheckCircle2, Circle, AlertTriangle } from 'lucide-react'
 import { SUPPORT_STATUS_WEBHOOK_URL } from '../config'
 
 /**
@@ -236,11 +236,13 @@ const SupportStatus = () => {
             </div>
           )}
 
+          {/* No link to /support here — the request form is private
+              (access-code bookmark only); this status page is public. */}
           <div className="text-center">
-            <Link to="/support" className="inline-flex items-center gap-2 text-mute hover:text-primary-green text-sm transition-colors">
-              <ArrowLeft className="w-4 h-4" strokeWidth={1.5} />
-              Submit a new service request
-            </Link>
+            <p className="text-mute text-sm">
+              Need to reach us about a ticket? Call{' '}
+              <a href="tel:+19199267100" className="text-primary-green hover:underline">(919) 926-7100</a>.
+            </p>
           </div>
 
         </div>

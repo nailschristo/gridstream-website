@@ -9,10 +9,15 @@ system back up in a future session.
 
 Live and end-to-end tested. The system is single-contract: the /support form is
 hardcoded to the ICVAHCS chiller contract (equipment list, SOW urgency
-language). The footer link was intentionally removed — the page is a private,
-access-code-gated portal reached only via bookmark:
+language). The form page is a private, access-code-gated portal reached only
+via bookmark (no nav/footer links to it, and the status page deliberately does
+not link back to it):
 
     https://gridstream.ai/support?code=<ACCESS_CODE>
+
+The status checker (/support/status) IS public — it's linked from the footer
+("Check Ticket Status") since it reveals nothing without an unguessable
+ticket ID.
 
 ## Architecture
 
