@@ -39,7 +39,8 @@ const STATUS_STEPS = [
   { key: 'resolvedAt', label: 'Resolved' },
 ]
 
-const TICKET_PATTERN = /^GS-\d{8}-[A-Z2-9]{4,8}$/i
+// Loose shape check only — the lookup webhook is the authority on what exists.
+const TICKET_PATTERN = /^GS-\d{8}-[A-Z0-9]{4,10}$/i
 
 const formatTime = (iso) => {
   try { return format(new Date(iso), 'MMM d, yyyy · h:mm a') } catch { return '' }
