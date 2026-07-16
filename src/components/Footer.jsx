@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { SHOW_AGENTIC, SHOW_SUPPORT } from '../config'
+import { SHOW_AGENTIC } from '../config'
 
 const Footer = () => {
   return (
@@ -58,13 +58,9 @@ const Footer = () => {
                   Contact
                 </Link>
               </li>
-              {SHOW_SUPPORT && (
-                <li>
-                  <Link to="/support" className="text-white/70 hover:text-primary-green transition-colors text-sm">
-                    Service Requests
-                  </Link>
-                </li>
-              )}
+              {/* /support intentionally has no nav/footer link — it's a private,
+                  access-code-gated client portal reached via bookmark.
+                  See docs/support-system-notes.md */}
             </ul>
           </div>
 
