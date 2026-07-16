@@ -1,0 +1,252 @@
+{
+  "name": "Support — Intake & Dispatch",
+  "nodes": [
+    {
+      "id": "wh-intake",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "support-intake-a7f3k9",
+        "responseMode": "onReceived",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      }
+    },
+    {
+      "id": "code-validate",
+      "name": "Validate & Enrich",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [220, 0],
+      "parameters": {
+        "jsCode": "// Server-side gate + SLA computation for incoming service requests.\n// ACCESS_CODE must match SUPPORT_ACCESS_CODE in the website's src/config.js.\nconst ACCESS_CODE = 'ICVAHCS-2026';\n\nconst b = $input.first().json.body || $input.first().json;\n\nif (!b.accessCode || String(b.accessCode).trim().toUpperCase() !== ACCESS_CODE.toUpperCase()) {\n  // Silently drop submissions that bypass the website's client-side check.\n  return [];\n}\nif (!b.ticketId || !b.email || !b.description) {\n  return [];\n}\n\nconst submitted = b.timestamp ? new Date(b.timestamp) : new Date();\nconst isEmergency = b.urgency === 'Major / Emergency';\nconst slaHours = isEmergency ? 4 : 24;\nconst slaDue = new Date(submitted.getTime() + slaHours * 3600 * 1000);\nconst reportMonth = `${submitted.getFullYear()}-${String(submitted.getMonth() + 1).padStart(2, '0')}`;\n\nreturn [{ json: {\n  ticketId: String(b.ticketId).toUpperCase(),\n  name: b.name || '',\n  role: b.role || '',\n  email: b.email,\n  phone: b.phone || '',\n  equipment: b.equipment || 'Other / Not Sure',\n  location: b.location || '',\n  urgency: b.urgency || 'Minor / Routine',\n  description: b.description,\n  callback: b.callback || '',\n  submittedAt: submitted.toISOString(),\n  slaDue: slaDue.toISOString(),\n  reportMonth,\n  isEmergency,\n}}];"
+      }
+    },
+    {
+      "id": "at-create",
+      "name": "Create Ticket",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [440, 0],
+      "parameters": {
+        "operation": "create",
+        "base": { "__rl": true, "value": "app11j5F2xgFaKVXV", "mode": "id" },
+        "table": { "__rl": true, "value": "tblSdUgv8mYlTJdHO", "mode": "id" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Ticket ID": "={{ $json.ticketId }}",
+            "Submitted At": "={{ $json.submittedAt }}",
+            "Status": "New",
+            "Urgency": "={{ $json.urgency }}",
+            "Equipment": "={{ $json.equipment }}",
+            "Requester Name": "={{ $json.name }}",
+            "Requester Role": "={{ $json.role }}",
+            "Requester Email": "={{ $json.email }}",
+            "Requester Phone": "={{ $json.phone }}",
+            "Location Detail": "={{ $json.location }}",
+            "Description": "={{ $json.description }}",
+            "Best Callback Time": "={{ $json.callback }}",
+            "SLA Due": "={{ $json.slaDue }}",
+            "Report Month": "={{ $json.reportMonth }}"
+          },
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "email-jci",
+      "name": "Email JCI Dispatch",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [660, 0],
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "fromEmail": "tyler@gridstream.ai",
+        "toEmail": "REPLACE-WITH-JCI-DISPATCH@example.com",
+        "subject": "={{ $('Validate & Enrich').item.json.isEmergency ? '🚨 EMERGENCY — 4HR SLA' : 'Service Request' }} · {{ $('Validate & Enrich').item.json.ticketId }} · Iowa City VAHCS",
+        "emailFormat": "text",
+        "text": "=NEW SERVICE REQUEST — Iowa City VA Health Care System\nContract 36C26326Q0707 · Gridstream LLC (prime)\n\nTicket:      {{ $('Validate & Enrich').item.json.ticketId }}\nUrgency:     {{ $('Validate & Enrich').item.json.urgency }}{{ $('Validate & Enrich').item.json.isEmergency ? '  ⚠ 30-min phone response / 4-hour onsite required' : '  (respond within 24 hours)' }}\nEquipment:   {{ $('Validate & Enrich').item.json.equipment }}\nLocation:    {{ $('Validate & Enrich').item.json.location || 'Not specified' }}\nSubmitted:   {{ $('Validate & Enrich').item.json.submittedAt }}\nSLA due:     {{ $('Validate & Enrich').item.json.slaDue }}\n\nISSUE DESCRIPTION\n{{ $('Validate & Enrich').item.json.description }}\n\nSITE CONTACT\n{{ $('Validate & Enrich').item.json.name }} — {{ $('Validate & Enrich').item.json.role }}\nPhone: {{ $('Validate & Enrich').item.json.phone }}\nEmail: {{ $('Validate & Enrich').item.json.email }}\nBest time: {{ $('Validate & Enrich').item.json.callback || 'Anytime' }}\n\nPlease confirm receipt and dispatch to tyler@gridstream.ai / (631) 873-9814.\nSubmitted via gridstream.ai/support.",
+        "options": {
+          "ccEmail": "tyler@gridstream.ai"
+        }
+      }
+    },
+    {
+      "id": "at-dispatch",
+      "name": "Mark Dispatched",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [880, 0],
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "operation": "update",
+        "base": { "__rl": true, "value": "app11j5F2xgFaKVXV", "mode": "id" },
+        "table": { "__rl": true, "value": "tblSdUgv8mYlTJdHO", "mode": "id" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Create Ticket').item.json.id }}",
+            "Status": "Dispatched",
+            "JCI Notified At": "={{ $now.toISO() }}",
+            "Dispatched At": "={{ $now.toISO() }}"
+          },
+          "matchingColumns": ["id"],
+          "schema": []
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "email-requester",
+      "name": "Confirm to Requester",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1100, 0],
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "fromEmail": "tyler@gridstream.ai",
+        "toEmail": "={{ $('Validate & Enrich').item.json.email }}",
+        "subject": "=[{{ $('Validate & Enrich').item.json.ticketId }}] Service request received — Gridstream",
+        "emailFormat": "text",
+        "text": "=Your service request has been received and dispatched to our service team.\n\nTicket number:  {{ $('Validate & Enrich').item.json.ticketId }}\nUrgency:        {{ $('Validate & Enrich').item.json.urgency }}\nEquipment:      {{ $('Validate & Enrich').item.json.equipment }}\n\nTrack progress anytime:\nhttps://gridstream.ai/support/status?ticket={{ $('Validate & Enrich').item.json.ticketId }}\n\n{{ $('Validate & Enrich').item.json.isEmergency ? 'EMERGENCY REQUESTS: if you have not already called, please also phone (919) 926-7100 now — phone is our fastest emergency channel.\\n\\n' : '' }}Gridstream LLC · (919) 926-7100 · contact@gridstream.ai\nSDVOSB · CAGE 12H34 · UEI TW2PWH3N98N7"
+      }
+    },
+    {
+      "id": "if-emergency",
+      "name": "Is Emergency?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1320, 0],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose" },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c-emergency",
+              "leftValue": "={{ $('Validate & Enrich').item.json.isEmergency }}",
+              "rightValue": "",
+              "operator": { "type": "boolean", "operation": "true", "singleValue": true }
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "sms-tyler",
+      "name": "SMS Alert (Tyler)",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [1540, -100],
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "resource": "sms",
+        "operation": "send",
+        "from": "+1REPLACE-TWILIO-NUMBER",
+        "to": "+16318739814",
+        "message": "=🚨 EMERGENCY ticket {{ $('Validate & Enrich').item.json.ticketId }} — {{ $('Validate & Enrich').item.json.equipment }}. Caller: {{ $('Validate & Enrich').item.json.name }} {{ $('Validate & Enrich').item.json.phone }}. 4-HR SLA. Acknowledge: https://n8n.gridstream.ai/webhook/support-ack-a7f3k9?ticket={{ $('Validate & Enrich').item.json.ticketId }}"
+      }
+    },
+    {
+      "id": "wait-15",
+      "name": "Wait 15 min",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [1760, -100],
+      "parameters": {
+        "amount": 15,
+        "unit": "minutes"
+      }
+    },
+    {
+      "id": "at-recheck",
+      "name": "Re-check Ticket",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [1980, -100],
+      "alwaysOutputData": true,
+      "parameters": {
+        "operation": "search",
+        "base": { "__rl": true, "value": "app11j5F2xgFaKVXV", "mode": "id" },
+        "table": { "__rl": true, "value": "tblSdUgv8mYlTJdHO", "mode": "id" },
+        "filterByFormula": "={Ticket ID} = '{{ $('Validate & Enrich').item.json.ticketId }}'",
+        "returnAll": true,
+        "options": {}
+      }
+    },
+    {
+      "id": "if-unacked",
+      "name": "Still Unacknowledged?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [2200, -100],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose" },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c-unacked",
+              "leftValue": "={{ $json['Acknowledged At'] || '' }}",
+              "rightValue": "",
+              "operator": { "type": "string", "operation": "empty", "singleValue": true }
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "sms-escalate",
+      "name": "SMS Escalation",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [2420, -200],
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "resource": "sms",
+        "operation": "send",
+        "from": "+1REPLACE-TWILIO-NUMBER",
+        "to": "+16318739814",
+        "message": "=⚠️ STILL UNACKNOWLEDGED after 15 min: EMERGENCY ticket {{ $('Validate & Enrich').item.json.ticketId }} — {{ $('Validate & Enrich').item.json.equipment }}. SLA clock running. Ack: https://n8n.gridstream.ai/webhook/support-ack-a7f3k9?ticket={{ $('Validate & Enrich').item.json.ticketId }}"
+      }
+    },
+    {
+      "id": "email-escalate",
+      "name": "Escalation Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [2420, -20],
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "fromEmail": "tyler@gridstream.ai",
+        "toEmail": "tyler@gridstream.ai",
+        "subject": "=⚠️ UNACKNOWLEDGED EMERGENCY — {{ $('Validate & Enrich').item.json.ticketId }} (15 min elapsed)",
+        "emailFormat": "text",
+        "text": "=Emergency ticket {{ $('Validate & Enrich').item.json.ticketId }} has not been acknowledged 15 minutes after submission.\n\nEquipment: {{ $('Validate & Enrich').item.json.equipment }}\nRequester: {{ $('Validate & Enrich').item.json.name }} — {{ $('Validate & Enrich').item.json.phone }}\nSubmitted: {{ $('Validate & Enrich').item.json.submittedAt }}\nSLA due:   {{ $('Validate & Enrich').item.json.slaDue }}\n\nAcknowledge now: https://n8n.gridstream.ai/webhook/support-ack-a7f3k9?ticket={{ $('Validate & Enrich').item.json.ticketId }}\n\nDescription:\n{{ $('Validate & Enrich').item.json.description }}"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Validate & Enrich", "type": "main", "index": 0 }]] },
+    "Validate & Enrich": { "main": [[{ "node": "Create Ticket", "type": "main", "index": 0 }]] },
+    "Create Ticket": { "main": [[{ "node": "Email JCI Dispatch", "type": "main", "index": 0 }]] },
+    "Email JCI Dispatch": { "main": [[{ "node": "Mark Dispatched", "type": "main", "index": 0 }]] },
+    "Mark Dispatched": { "main": [[{ "node": "Confirm to Requester", "type": "main", "index": 0 }]] },
+    "Confirm to Requester": { "main": [[{ "node": "Is Emergency?", "type": "main", "index": 0 }]] },
+    "Is Emergency?": { "main": [[{ "node": "SMS Alert (Tyler)", "type": "main", "index": 0 }], []] },
+    "SMS Alert (Tyler)": { "main": [[{ "node": "Wait 15 min", "type": "main", "index": 0 }]] },
+    "Wait 15 min": { "main": [[{ "node": "Re-check Ticket", "type": "main", "index": 0 }]] },
+    "Re-check Ticket": { "main": [[{ "node": "Still Unacknowledged?", "type": "main", "index": 0 }]] },
+    "Still Unacknowledged?": { "main": [[{ "node": "SMS Escalation", "type": "main", "index": 0 }, { "node": "Escalation Email", "type": "main", "index": 0 }], []] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

@@ -1,0 +1,102 @@
+{
+  "name": "Support — Status Lookup",
+  "nodes": [
+    {
+      "id": "wh-status",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "support-status-a7f3k9",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      }
+    },
+    {
+      "id": "at-find",
+      "name": "Find Ticket",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [220, 0],
+      "alwaysOutputData": true,
+      "parameters": {
+        "operation": "search",
+        "base": { "__rl": true, "value": "app11j5F2xgFaKVXV", "mode": "id" },
+        "table": { "__rl": true, "value": "tblSdUgv8mYlTJdHO", "mode": "id" },
+        "filterByFormula": "={Ticket ID} = '{{ ($('Webhook').item.json.query.ticket || '').toUpperCase().replace(/[^A-Z0-9-]/g, '') }}'",
+        "returnAll": true,
+        "options": {}
+      }
+    },
+    {
+      "id": "if-found",
+      "name": "Found?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [440, 0],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose" },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c-found",
+              "leftValue": "={{ $json.id || '' }}",
+              "rightValue": "",
+              "operator": { "type": "string", "operation": "notEmpty", "singleValue": true }
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "respond-found",
+      "name": "Respond Found",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [660, -100],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({\n  found: true,\n  ticketId: $json['Ticket ID'],\n  urgency: $json['Urgency'] || null,\n  equipment: $json['Equipment'] || null,\n  status: $json['Status'] || 'New',\n  created: $json['Submitted At'] || null,\n  acknowledgedAt: $json['Acknowledged At'] || null,\n  dispatchedAt: $json['Dispatched At'] || null,\n  onSiteAt: $json['On Site At'] || null,\n  resolvedAt: $json['Resolved At'] || null,\n  notes: $json['Public Notes'] || null\n}) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Content-Type", "value": "application/json" }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "respond-notfound",
+      "name": "Respond Not Found",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [660, 100],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ found: false }) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Content-Type", "value": "application/json" }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Find Ticket", "type": "main", "index": 0 }]] },
+    "Find Ticket": { "main": [[{ "node": "Found?", "type": "main", "index": 0 }]] },
+    "Found?": { "main": [[{ "node": "Respond Found", "type": "main", "index": 0 }], [{ "node": "Respond Not Found", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

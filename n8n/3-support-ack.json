@@ -1,0 +1,127 @@
+{
+  "name": "Support — Acknowledge Ticket",
+  "nodes": [
+    {
+      "id": "wh-ack",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "support-ack-a7f3k9",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "at-find",
+      "name": "Find Ticket",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [220, 0],
+      "alwaysOutputData": true,
+      "parameters": {
+        "operation": "search",
+        "base": { "__rl": true, "value": "app11j5F2xgFaKVXV", "mode": "id" },
+        "table": { "__rl": true, "value": "tblSdUgv8mYlTJdHO", "mode": "id" },
+        "filterByFormula": "={Ticket ID} = '{{ ($('Webhook').item.json.query.ticket || '').toUpperCase().replace(/[^A-Z0-9-]/g, '') }}'",
+        "returnAll": true,
+        "options": {}
+      }
+    },
+    {
+      "id": "if-ackable",
+      "name": "Found & Not Yet Acked?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [440, 0],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose" },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c-found",
+              "leftValue": "={{ $json.id || '' }}",
+              "rightValue": "",
+              "operator": { "type": "string", "operation": "notEmpty", "singleValue": true }
+            },
+            {
+              "id": "c-notacked",
+              "leftValue": "={{ $json['Acknowledged At'] || '' }}",
+              "rightValue": "",
+              "operator": { "type": "string", "operation": "empty", "singleValue": true }
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "at-ack",
+      "name": "Stamp Acknowledged",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [660, -100],
+      "parameters": {
+        "operation": "update",
+        "base": { "__rl": true, "value": "app11j5F2xgFaKVXV", "mode": "id" },
+        "table": { "__rl": true, "value": "tblSdUgv8mYlTJdHO", "mode": "id" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.id }}",
+            "Acknowledged At": "={{ $now.toISO() }}"
+          },
+          "matchingColumns": ["id"],
+          "schema": []
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "respond-ok",
+      "name": "Respond Acknowledged",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [880, -100],
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=✅ Ticket {{ ($('Webhook').item.json.query.ticket || '').toUpperCase() }} acknowledged at {{ $now.toFormat('h:mma ZZZZ, MMM d') }}. Escalation alerts stopped.",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Content-Type", "value": "text/plain; charset=utf-8" }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "respond-no",
+      "name": "Respond No Action",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [660, 100],
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=Ticket not found or already acknowledged — no action taken.",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Content-Type", "value": "text/plain; charset=utf-8" }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Find Ticket", "type": "main", "index": 0 }]] },
+    "Find Ticket": { "main": [[{ "node": "Found & Not Yet Acked?", "type": "main", "index": 0 }]] },
+    "Found & Not Yet Acked?": { "main": [[{ "node": "Stamp Acknowledged", "type": "main", "index": 0 }], [{ "node": "Respond No Action", "type": "main", "index": 0 }]] },
+    "Stamp Acknowledged": { "main": [[{ "node": "Respond Acknowledged", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}
