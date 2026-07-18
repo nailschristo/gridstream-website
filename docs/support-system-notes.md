@@ -25,15 +25,28 @@ ticket ID.
 VA staff → /support form (React, access-code gate, ticket ID GS-YYYYMMDD-XXXXXX)
    ├─→ Netlify Forms "support"  (durable record + email safety net if n8n is down)
    └─→ n8n intake webhook
-         ├─→ Airtable: create ticket
-         ├─→ Email JCI dispatch (CC Tyler) → mark Dispatched
+         ├─→ Airtable: create ticket (Status "New" = awaiting Gridstream approval)
+         ├─→ APPROVAL email to Tyler (Gmail) w/ "Approve & Dispatch" button
          ├─→ Confirmation email to requester (with status link)
-         └─→ IF emergency: Twilio SMS w/ ack link → Wait 15 min →
+         └─→ IF emergency: Twilio SMS w/ approve link → Wait 15 min →
              re-check Acknowledged At → if empty, escalate (SMS + email)
+             (escalation loop doubles as the "you haven't approved yet" nag)
+
+Approve link → n8n approve webhook (GET) → builds JCI dispatch email FROM THE
+  AIRTABLE RECORD (Gmail, CC Tyler) → stamps Status "Dispatched" +
+  Acknowledged At/JCI Notified At/Dispatched At. Idempotent (no double-
+  dispatch); if the Gmail send fails the ticket stays "New" so the click
+  can be retried. Approval = acknowledgment (silences the escalation loop).
 
 /support/status?ticket=… → n8n status webhook (GET) → Airtable → JSON timeline
-SMS ack link → n8n ack webhook (GET) → stamps Acknowledged At (idempotent)
+Ack link (legacy) → n8n ack webhook (GET) → stamps Acknowledged At only
 ```
+
+NOTE (2026-07-18): the system was changed from auto-forward-to-JCI to
+**approval-gated for ALL tickets** — including emergencies, so approving
+emergency tickets fast is on Tyler. Tickets sit in Status "New" until the
+approve button (in the approval email / emergency SMS) is clicked. Live email
+nodes use Gmail ("Gridstream Google Workspace" credential), not SMTP.
 
 ### Inventory / IDs
 
@@ -45,6 +58,7 @@ SMS ack link → n8n ack webhook (GET) → stamps Acknowledged At (idempotent)
 | Intake webhook | `POST /webhook/support-intake-a7f3k9` |
 | Status webhook | `GET /webhook/support-status-a7f3k9?ticket=…` |
 | Ack webhook | `GET /webhook/support-ack-a7f3k9?ticket=…` |
+| Approve webhook | `GET /webhook/support-approve-a7f3k9?ticket=…` — sends JCI dispatch + marks Dispatched (workflow "Support — Approve & Dispatch", repo copy `n8n/4-support-approve.json`) |
 | Site pages | `src/pages/Support.jsx`, `src/pages/SupportStatus.jsx` |
 | Config | `src/config.js` — SHOW_SUPPORT flag, webhook URLs, SUPPORT_ACCESS_CODE |
 | Netlify form | hidden `support` form registered in `index.html` |

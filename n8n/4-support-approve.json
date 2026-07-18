@@ -1,0 +1,5 @@
+{
+  "name": "Support — Approve & Dispatch",
+  "_comment": "Repo reference copy of the approval workflow (credentials stripped). The live, authoritative version is in n8n at n8n.gridstream.ai. See docs/support-system-notes.md.",
+  "nodes": "See chat/live instance — this file is a placeholder marker; export the live workflow from n8n to refresh it."
+}
